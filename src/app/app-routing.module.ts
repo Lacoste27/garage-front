@@ -1,65 +1,41 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AdminComponent } from './theme/layout/admin/admin.component';
-import { GuestComponent } from './theme/layout/guest/guest.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { GuardService } from "./demo/services/guard.service";
+import { AdminComponent } from "./theme/layout/admin/admin.component";
+import { GuestComponent } from "./theme/layout/guest/guest.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: AdminComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
+        path: "",
+        redirectTo: "dashboard",
+        pathMatch: "full",
       },
       {
-        path: 'dashboard',
-        loadComponent: () => import('./demo/dashboard/dashboard.component'),
+        path: "dashboard",
+        loadComponent: () => import("./demo/dashboard/dashboard.component")
       },
       {
-        path: 'basic',
+        path: "users",
         loadChildren: () =>
-          import('./demo/ui-elements/ui-basic/ui-basic.module').then(
-            (m) => m.UiBasicModule
+          import("./demo/pages/users/users.module").then(
+            (m) => m.UsersModule
           ),
-      },
-      {
-        path: 'forms',
-        loadChildren: () =>
-          import('./demo/pages/form-elements/form-elements.module').then(
-            (m) => m.FormElementsModule
-          ),
-      },
-      {
-        path: 'tables',
-        loadChildren: () =>
-          import('./demo/pages/tables/tables.module').then(
-            (m) => m.TablesModule
-          ),
-      },
-      {
-        path: 'charts',
-        loadChildren: () =>
-          import('./demo/pages/core-chart/core-chart.module').then(
-            (m) => m.CoreChartModule
-          ),
-      },
-      {
-        path: 'sample-page',
-        loadComponent: () =>
-          import('./demo/extra/sample-page/sample-page.component'),
       },
     ],
+    canActivate: [GuardService]
   },
   {
-    path: '',
+    path: "",
     component: GuestComponent,
     children: [
       {
-        path: 'auth',
+        path: "auth",
         loadChildren: () =>
-          import('./demo/pages/authentication/authentication.module').then(
+          import("./demo/pages/authentication/authentication.module").then(
             (m) => m.AuthenticationModule
           ),
       },

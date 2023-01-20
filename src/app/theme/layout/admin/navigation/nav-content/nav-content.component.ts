@@ -41,7 +41,12 @@ export class NavContentComponent implements OnInit {
   ) {
     this.config = DattaConfig;
     this.windowWidth = window.innerWidth;
-    this.navigation = this.nav.get();
+    this.navigation = this.nav.get({
+      nom: "Tsiory",
+      prenom: "yroist",
+      email: "email@gmail.com",
+      role: {nom:"Client"},
+    });
     this.scrollWidth = 0;
     this.contentWidth = 0;
   }
