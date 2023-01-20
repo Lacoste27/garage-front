@@ -30,6 +30,9 @@ export default class AuthSigninComponent {
       email: ["", Validators.required],
       password: ["", Validators.required],
     });
+    if(authService.isLoggedIn){  
+      router.navigateByUrl("/dashboard");
+    }
   }
 
   signin() {
