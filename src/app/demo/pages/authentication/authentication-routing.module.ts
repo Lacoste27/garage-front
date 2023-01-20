@@ -13,6 +13,10 @@ const routes: Routes = [
         path: 'signup',
         loadComponent: () => import('./auth-signup/auth-signup.component'),
       },
+      {
+        path: 'logout',
+        redirectTo: 'signin',
+      },
     ],
   },
 ];
