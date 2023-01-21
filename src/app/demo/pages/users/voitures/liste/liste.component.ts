@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { IResponse } from 'src/app/demo/interfaces/interface';
+import { Router, RouterModule } from '@angular/router';
+import { IResponse, IVoiture } from 'src/app/demo/interfaces/interface';
 import { UsersService } from 'src/app/demo/services/users/users.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 
@@ -13,16 +13,26 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
   styleUrls: ['./liste.component.scss']
 })
 export class ListeComponent implements OnInit {
-  voitures: any = [];
+  voitures: IVoiture[] = [];
   loading: boolean = true;
 
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private router: Router) { }
 
   ngOnInit(): void {
     this.userService.listVoitures().subscribe((reponse: IResponse) => {
-      this.voitures = reponse.data;
-      this.loading = false;
+      if (reponse.success == true) {
+        this.voitures = reponse.data;
+        this.loading = false;
+      }
     })
+  }
+
+  deposerVoiture(numeroVoiture: string) {
+    this.userService.deposerVoiture(numeroVoiture).subscribe((reponse: IResponse) => {
+      if (reponse.success == true) {
+        this.router.navigateByUrl('/users/reparations/liste');
+      }
+    });
   }
 
 }

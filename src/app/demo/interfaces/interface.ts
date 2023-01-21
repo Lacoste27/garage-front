@@ -21,3 +21,19 @@ export interface IVoiture {
     marque: string,
     model: string
 }
+
+export interface IReparation {
+    date_depot: Date,
+    date_sortie: Date,
+    paiement: {},
+    client: {},
+    voiture: IVoiture,
+    reparateur: {
+        id: string,
+        nom: string,
+        prenom: string,
+        email: string
+    },
+    reparation_faire: [],
+    status: string
+}

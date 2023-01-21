@@ -12,6 +12,7 @@
                             <th>Numéro du véhicule</th>
                             <th>Modèle</th>
                             <th>Marque</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,6 +21,8 @@
                             <td>{{voiture.numero}}</td>
                             <td>{{voiture.model}}</td>
                             <td>{{voiture.marque}}</td>
+                            <td class="action"><button class="btn btn-secondary"
+                                    (click)="deposerVoiture(voiture.numero)">Déposer</button></td>
                         </tr>
                     </tbody>
                 </table>

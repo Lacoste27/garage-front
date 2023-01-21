@@ -25,4 +25,16 @@ export class UsersService {
     this.headers.set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
     return this.http.post(urlAddVoiture, voiture, { headers: this.headers });
   }
+
+  deposerVoiture(numeroVoiture: string) {
+    let urlDeposerVoiture = this.base_url + numeroVoiture + '/depot';
+    this.headers.set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    return this.http.get(urlDeposerVoiture, { headers: this.headers });
+  }
+
+  listReparations() {
+    let urlListReparation = this.base_url + 'reparations';
+    this.headers.set('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
+    return this.http.get(urlListReparation, { headers: this.headers });
+  }
 }
