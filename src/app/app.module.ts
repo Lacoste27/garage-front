@@ -24,6 +24,7 @@ import { ToggleFullScreenDirective } from "./theme/shared/components/full-screen
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthentificationInterceptorService } from "./demo/services/authentification-interceptor.service";
 import { ToastrModule } from "ngx-toastr";
+import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ToastrModule } from "ngx-toastr";
     NavItemComponent,
     NavSearchComponent,
     ToggleFullScreenDirective,
+    ListeComponent,
   ],
   imports: [
     BrowserModule,

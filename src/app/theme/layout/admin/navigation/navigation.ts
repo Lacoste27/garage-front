@@ -139,7 +139,7 @@ const AtelierNavigation = [
         id: "liste-voiture",
         title: "Liste des voitures à entrer",
         type: "item",
-        url: "/users/voitures",
+        url: "/reparations/liste",
         icon: "feather icon-home",
         classes: "nav-item",
       },
