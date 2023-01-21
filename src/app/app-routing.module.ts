@@ -36,6 +36,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./demo/pages/users/users.module").then((m) => m.UsersModule),
       },
+      {
+        path: "reparations",
+        loadChildren: () =>
+          import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule),
+      },
     ],
     canActivate: [GuardService],
   },
