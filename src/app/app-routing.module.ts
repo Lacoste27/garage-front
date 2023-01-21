@@ -10,16 +10,12 @@ const routes: Routes = [
     component: GuestComponent,
     children: [
       {
-        path: "auth",
-        redirectTo: "/auth/signin",
+        path: "",
+        redirectTo: "/auth/client/signin",
         pathMatch: "full",
       },
       {
-        path: "dashboard",
-        loadComponent: () => import("./demo/dashboard/dashboard.component")
-      },
-      {
-        path: "users",
+        path: "auth",
         loadChildren: () =>
           import("./demo/pages/authentication/authentication.module").then(
             (m) => m.AuthenticationModule
@@ -31,11 +27,6 @@ const routes: Routes = [
     path: "",
     component: AdminComponent,
     children: [
-      {
-        path: "",
-        redirectTo: "/auth/client/signin",
-        pathMatch: "full",
-      },
       {
         path: "dashboard",
         loadComponent: () => import("./demo/dashboard/dashboard.component"),
