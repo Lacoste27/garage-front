@@ -23,11 +23,6 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: "",
-        redirectTo: "/auth/client/signin",
-        pathMatch: "full",
-      },
-      {
         path: "dashboard",
         loadComponent: () => import("./demo/dashboard/dashboard.component"),
       },
