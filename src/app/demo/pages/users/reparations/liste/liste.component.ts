@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { IReparation, IResponse } from 'src/app/demo/interfaces/interface';
 import { UsersService } from 'src/app/demo/services/users/users.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
@@ -10,7 +11,7 @@ import { CardModule } from "../../../../../theme/shared/components/card/card.mod
   templateUrl: './liste.component.html',
   styleUrls: ['./liste.component.scss'],
   standalone: true,
-  imports: [CommonModule, SharedModule, CardModule]
+  imports: [CommonModule, SharedModule, CardModule, RouterModule]
 })
 export class ListeComponent implements OnInit {
 
@@ -23,6 +24,7 @@ export class ListeComponent implements OnInit {
     this.userService.listReparations().subscribe((reponse: IResponse) => {
       if (reponse.success == true) {
         this.loading = false;
+        console.log(reponse.data);
         this.reparations = reponse.data.reparations;
       }
     });

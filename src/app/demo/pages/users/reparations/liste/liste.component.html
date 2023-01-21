@@ -62,11 +62,12 @@
           </thead>
           <tbody>
             <tr *ngFor="let reparation of reparations; index as i">
-              <th scope="row">{{ i+1 }}</th>
+              <th scope="row">{{ i + 1 }}</th>
               <td>{{reparation.voiture.numero}}</td>
               <td>{{ reparation.date_depot|date }} - {{reparation.date_depot|date:'shortTime' }}</td>
               <td>{{reparation.status}}</td>
-              <td class="action"><button class="btn btn-secondary">Avancement</button></td>
+              <td class="action"><a [routerLink]="['/users/reparations/details',reparation._id]"><button
+                    class="btn btn-secondary">Avancement</button></a></td>
             </tr>
           </tbody>
         </table>

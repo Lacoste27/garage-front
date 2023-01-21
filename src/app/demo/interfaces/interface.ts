@@ -23,10 +23,15 @@ export interface IVoiture {
 }
 
 export interface IReparation {
+    _id: string,
     date_depot: Date,
     date_sortie: Date,
     paiement: {},
-    client: {},
+    client: {
+        nom: string,
+        prenom: string,
+        email: string
+    },
     voiture: IVoiture,
     reparateur: {
         id: string,
@@ -34,6 +39,11 @@ export interface IReparation {
         prenom: string,
         email: string
     },
-    reparation_faire: [],
+    reparation_faire: [{
+        cause: string,
+        solution: string,
+        prix: string,
+        etat: string
+    }],
     status: string
 }
