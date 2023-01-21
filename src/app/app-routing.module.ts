@@ -11,15 +11,6 @@ const routes: Routes = [
     children: [
       {
         path: "auth",
-        redirectTo: "/auth/signin",
-        pathMatch: "full",
-      },
-      {
-        path: "dashboard",
-        loadComponent: () => import("./demo/dashboard/dashboard.component")
-      },
-      {
-        path: "users",
         loadChildren: () =>
           import("./demo/pages/authentication/authentication.module").then(
             (m) => m.AuthenticationModule
