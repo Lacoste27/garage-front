@@ -23,6 +23,7 @@ import { NavigationItem } from "./theme/layout/admin/navigation/navigation";
 import { ToggleFullScreenDirective } from "./theme/shared/components/full-screen/toggle-full-screen";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthentificationInterceptorService } from "./demo/services/authentification-interceptor.service";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,11 @@ import { AuthentificationInterceptorService } from "./demo/services/authentifica
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [
     NavigationItem,

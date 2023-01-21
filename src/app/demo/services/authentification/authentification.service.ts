@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { IUser } from "../../interfaces/interface";
+import { IUser, IUserRequest } from "../../interfaces/interface";
 import { TokenService } from "../jwt/token.service";
 
 @Injectable({
@@ -43,8 +43,8 @@ export class AuthentificationService {
     this.token.Clear();
   }
 
-  signUp(user: IUser): Observable<any> {
-    let api = `${this.base_url}/signup`;
+  signUp(user: IUserRequest): Observable<any> {
+    let api = `${this.base_url}users/signup`;
     return this.http.post(api, user);
   }
 

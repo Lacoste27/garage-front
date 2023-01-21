@@ -15,3 +15,10 @@ export interface IUser {
     email:string,
     role : IRole
 }
+
+export interface IUserRequest {  
+    nom:string,
+    prenom: string,
+    email:string,
+    password:string
+}
