@@ -20,12 +20,7 @@ export class BreadcrumbComponent {
     public nav: NavigationItem,
     private titleService: Title
   ) {
-    this.navigation = this.nav.get({
-      nom: "Tsiory",
-      prenom: "yroist",
-      email: "email@gmail.com",
-      role: { nom: "Client" },
-    });
+    this.navigation = this.nav.get();
     this.setBreadcrumb();
     this.type = "theme2";
   }

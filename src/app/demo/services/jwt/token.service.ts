@@ -1,27 +1,36 @@
-import { Injectable } from '@angular/core';
-import jwtDecode from 'jwt-decode';
+import { Injectable } from "@angular/core";
+import jwtDecode from "jwt-decode";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class TokenService {
+  constructor() {}
 
-  constructor() { }
-
-  SetToken(token: string){  
-    localStorage.setItem('access_token', token);
-    console.log(this.GetUser());
+  SetToken(token: string) {
+    localStorage.setItem("access_token", token);
   }
 
   GetToken() {
-    return localStorage.getItem('access_token');
+    const access_token = localStorage.getItem("access_token");
+    if (access_token) {
+      return localStorage.getItem("access_token");
+    } else {
+      return null;
+    }
   }
 
-  GetUser(){  
-    return jwtDecode(this.GetToken())
+  GetUser() {
+    const token = this.GetToken();
+    if (token) {
+      const user = jwtDecode(token);
+      return user;
+    } else {
+      return null;
+    }
   }
 
-  Clear(){  
+  Clear() {
     localStorage.clear();
   }
 }
