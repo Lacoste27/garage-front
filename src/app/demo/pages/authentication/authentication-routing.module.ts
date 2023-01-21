@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'logout',
-        redirectTo: 'signin',
+        redirectTo: 'client/signin',
       },
     ],
   },

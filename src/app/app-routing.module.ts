@@ -10,6 +10,11 @@ const routes: Routes = [
     component: GuestComponent,
     children: [
       {
+        path: "",
+        redirectTo: "/auth/client/signin",
+        pathMatch: "full",
+      },
+      {
         path: "auth",
         loadChildren: () =>
           import("./demo/pages/authentication/authentication.module").then(
