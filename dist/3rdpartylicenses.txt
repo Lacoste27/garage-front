@@ -176,6 +176,9 @@ SOFTWARE.
 morris.js
 BSD-2-Clause
 
+ngx-color-picker
+MIT
+
 ngx-scrollbar
 MIT
 
