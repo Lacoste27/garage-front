@@ -7,29 +7,6 @@ import { GuestComponent } from "./theme/layout/guest/guest.component";
 const routes: Routes = [
   {
     path: "",
-    component: AdminComponent,
-    children: [
-      {
-        path: "",
-        redirectTo: "dashboard",
-        pathMatch: "full",
-      },
-      {
-        path: "dashboard",
-        loadComponent: () => import("./demo/dashboard/dashboard.component")
-      },
-      {
-        path: "users",
-        loadChildren: () =>
-          import("./demo/pages/users/users.module").then(
-            (m) => m.UsersModule
-          ),
-      },
-    ],
-    canActivate: [GuardService]
-  },
-  {
-    path: "",
     component: GuestComponent,
     children: [
       {
@@ -40,6 +17,27 @@ const routes: Routes = [
           ),
       },
     ],
+  },
+  {
+    path: "",
+    component: AdminComponent,
+    children: [
+      {
+        path: "",
+        redirectTo: "/auth/client/signin",
+        pathMatch: "full",
+      },
+      {
+        path: "dashboard",
+        loadComponent: () => import("./demo/dashboard/dashboard.component"),
+      },
+      {
+        path: "users",
+        loadChildren: () =>
+          import("./demo/pages/users/users.module").then((m) => m.UsersModule),
+      },
+    ],
+    canActivate: [GuardService],
   },
 ];
 
