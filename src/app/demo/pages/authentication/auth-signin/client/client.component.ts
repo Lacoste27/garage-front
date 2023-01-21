@@ -1,40 +1,39 @@
-import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Router, RouterModule } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
-  FormControlName,
   FormGroup,
   Validators,
 } from "@angular/forms";
+import { Router, RouterModule } from "@angular/router";
+import { NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
+import { ColorPickerModule } from "ngx-color-picker";
+import { IResponse } from "src/app/demo/interfaces/interface";
 import { AuthentificationService } from "src/app/demo/services/authentification/authentification.service";
 import { TokenService } from "src/app/demo/services/jwt/token.service";
 import { NavigationItem } from "src/app/theme/layout/admin/navigation/navigation";
 import { SharedModule } from "src/app/theme/shared/shared.module";
-import { ToastService } from "src/app/theme/toast/toast.service";
-import {
-  IResponse,
-  IUser,
-  IUserRequest,
-} from "src/app/demo/interfaces/interface";
 
 @Component({
-  selector: "app-auth-signup",
+  selector: "app-client",
   standalone: true,
-  imports: [CommonModule, RouterModule, SharedModule],
-  templateUrl: "./auth-signup.component.html",
-  styleUrls: ["./auth-signup.component.scss"],
+  imports: [
+    CommonModule,
+    SharedModule,
+    NgbDropdownModule,
+    ColorPickerModule,
+    RouterModule,
+  ],
+  templateUrl: "./client.component.html",
+  styleUrls: ["./client.component.scss"],
 })
-export default class AuthSignupComponent implements OnInit {
+export class ClientComponent implements OnInit {
   loading: boolean = false;
   erreur: boolean = false;
   submitted: boolean = false;
-
   form: FormGroup = new FormGroup({
-    nom: new FormControl(""),
-    prenom: new FormControl(""),
     email: new FormControl(""),
     password: new FormControl(""),
   });
@@ -44,58 +43,48 @@ export default class AuthSignupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private token: TokenService,
-    private navigation: NavigationItem,
-    private toast: ToastService
+    private navigation: NavigationItem
   ) {}
-
-  get f(): { [key: string]: AbstractControl } {
-    return this.form.controls;
-  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nom: ["", Validators.required],
-      prenom: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
     });
   }
 
-  onSubmit() {
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+
+  signin() {
+    const value = this.form.value;
     this.loading = true;
     this.submitted = true;
-
-    const value = this.form.value;
 
     if (this.form.invalid) {
       this.loading = false;
       return;
     }
 
-    const user: IUserRequest = {
-      nom: value.nom,
-      prenom: value.prenom,
-      email: value.email,
-      password: value.password,
-    };
-
-    this.authService.signUp(user).subscribe({
+    this.authService.login(value.email, value.password, "client").subscribe({
       next: (result) => {
         const response: IResponse = result as IResponse;
+        this.loading = false;
         if (response.success) {
-          this.toast.ShowSuccess("Inscription !", response.message.toString());
           this.token.SetToken(response.data.token);
           this.navigation.set();
           this.router.navigateByUrl("/dashboard");
+        } else {
+          this.erreur = true;
           this.loading = false;
-        } else if (response.error) {
-          this.loading = false;
-          this.toast.ShowError("Erreur !", response.message.toString());
+          return;
         }
       },
-      error: (error) => {
+      error: (msg) => {
+        this.erreur = true;
         this.loading = false;
-        this.toast.ShowError("Erreur", "Une erreur s'est produite");
+        return;
       },
     });
   }

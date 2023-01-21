@@ -15,8 +15,7 @@ export class GuardService implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn !== true) {
-      window.alert("Access not allowed!");
-      this.router.navigateByUrl("/auth/signin")
+      this.router.navigateByUrl("/auth/client/signin")
     }
     return true;
   }

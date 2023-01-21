@@ -9,11 +9,18 @@ export interface IRole {
     nom: string
 }
 
-export interface IUser {
-    nom: string,
+export interface IUser {  
+    nom:string,
     prenom: string,
-    email: string,
-    role: IRole
+    email:string,
+    role : IRole
+}
+
+export interface IUserRequest {  
+    nom:string,
+    prenom: string,
+    email:string,
+    password:string
 }
 
 export interface IVoiture {
@@ -46,4 +53,5 @@ export interface IReparation {
         etat: string
     }],
     status: string
+
 }

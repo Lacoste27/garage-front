@@ -1,0 +1,45 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div class="card">
+      <form [formGroup]="form" (ngSubmit)="signin()">
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <i class="feather icon-unlock auth-icon"></i>
+          </div>
+          <h3 class="mb-4">Connexion</h3>
+          <div class="input-group mb-3">
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="Email"
+            />
+          </div>
+          <div class="input-group mb-4">
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              placeholder="Mot de passe"
+            />
+          </div>
+          <button class="btn btn-primary mb-4">
+            Se connecter
+            <span
+              class="spinner-border spinner-border-sm"
+              *ngIf="loading"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

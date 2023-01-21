@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IRole, IUser } from "src/app/demo/interfaces/interface";
+import { TokenService } from "src/app/demo/services/jwt/token.service";
 
 export interface NavigationItem {
   id: string;
@@ -28,84 +29,84 @@ export interface Navigation extends NavigationItem {
 
 const UserNavigation = [
   {
-    id: 'navigation',
-    title: 'Navigation',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "navigation",
+    title: "Navigation",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'item',
-        url: '/dashboard',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "dashboard",
+        title: "Dashboard",
+        type: "item",
+        url: "/dashboard",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
   },
   {
-    id: 'voitures',
-    title: 'Voitures',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "voitures",
+    title: "Voitures",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'liste-voiture',
-        title: 'Liste des voitures',
-        type: 'item',
-        url: '/users/voitures/liste',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "liste-voiture",
+        title: "Liste des voitures",
+        type: "item",
+        url: "/users/voitures/liste",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
   },
   {
-    id: 'reparations',
-    title: 'Reparation',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "reparations",
+    title: "Reparation",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'liste-reparations',
-        title: 'Liste des reparations',
-        type: 'item',
-        url: '/users/reparations/liste',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "liste-reparations",
+        title: "Liste des reparations",
+        type: "item",
+        url: "/users/reparations/liste",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
-  }
+  },
 ];
 const FinancierNavigation = [
   {
-    id: 'navigation',
-    title: 'Navigation',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "navigation",
+    title: "Navigation",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'item',
-        url: '/dashboard',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "dashboard",
+        title: "Dashboard",
+        type: "item",
+        url: "/dashboard",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
   },
   {
-    id: 'voitures',
-    title: 'Voitures',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "voitures",
+    title: "Voitures",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'liste-voiture',
-        title: 'Liste des voitures',
-        type: 'item',
-        url: '/users/voitures',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "liste-voiture",
+        title: "Liste des voitures",
+        type: "item",
+        url: "/users/voitures",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
   },
@@ -113,34 +114,34 @@ const FinancierNavigation = [
 
 const AtelierNavigation = [
   {
-    id: 'navigation',
-    title: 'Navigation',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "navigation",
+    title: "Navigation",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'dashboard',
-        title: 'Dashboard',
-        type: 'item',
-        url: '/dashboard',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "dashboard",
+        title: "Dashboard",
+        type: "item",
+        url: "/dashboard",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
   },
   {
-    id: 'voitures',
-    title: 'Atelier',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: "voitures",
+    title: "Atelier",
+    type: "group",
+    icon: "icon-navigation",
     children: [
       {
-        id: 'liste-voiture',
-        title: 'Liste des voitures',
-        type: 'item',
-        url: '/users/voitures',
-        icon: 'feather icon-home',
-        classes: 'nav-item',
+        id: "liste-voiture",
+        title: "Liste des voitures à entrer",
+        type: "item",
+        url: "/users/voitures",
+        icon: "feather icon-home",
+        classes: "nav-item",
       },
     ],
   },
@@ -275,17 +276,34 @@ const NavigationItems = [
 
 @Injectable()
 export class NavigationItem {
-  get(user: IUser) {
-    let navigation;
-    if(user.role.nom == 'Client'){
-      navigation = UserNavigation;
-    } else if(user.role.nom == 'Atelier') {  
-      navigation = AtelierNavigation;
-    }else if(user.role.nom == 'Financier'){
-      navigation = FinancierNavigation
-    }else {  
-      navigation = NavigationItems
+  private user: any;
+  public navigation: any[] = [];
+
+  constructor(private token: TokenService) {
+    this.set();
+  }
+
+  set() {
+    if (this.token.GetUser()) {
+      this.user = this.token.GetUser();
+      console.log('-------- user -----------')
+      console.log(this.user);
+      console.log('-------- user -----------')
+      if (this.user.role == "client") {
+        this.navigation = UserNavigation;
+      } else if (this.user.role == "atelier") {
+        this.navigation = AtelierNavigation;
+      } else if (this.user.role == "financier") {
+        this.navigation = FinancierNavigation;
+      } else {
+        this.navigation = NavigationItems;
+      }
+    } else {
+      this.navigation = NavigationItems;
     }
-    return navigation;
+  }
+
+  get() {
+    return this.navigation;
   }
 }

@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [CommonModule, AuthenticationRoutingModule],
 })
 export class AuthenticationModule {}
