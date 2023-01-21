@@ -28,8 +28,10 @@ export class ListeComponent implements OnInit {
   }
 
   deposerVoiture(numeroVoiture: string) {
+    this.loading = true;
     this.userService.deposerVoiture(numeroVoiture).subscribe((reponse: IResponse) => {
       if (reponse.success == true) {
+        this.loading = false;
         this.router.navigateByUrl('/users/reparations/liste');
       }
     });
