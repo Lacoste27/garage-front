@@ -9,7 +9,7 @@ const routes: Routes = [
     path: "",
     children: [
       {
-        path: "details",
+        path: "details/:id",
         component: DetailsComponent,
       },
       { path: "liste", component: ListeComponent },
@@ -21,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReparationsRoutingModule {}
+export class ReparationsRoutingModule { }

@@ -1,16 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { IReparation, IResponse } from 'src/app/demo/interfaces/interface';
+import { UsersService } from 'src/app/demo/services/users/users.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CardModule } from "../../../../../theme/shared/components/card/card.module";
 
 @Component({
-    selector: 'app-liste',
-    templateUrl: './liste.component.html',
-    styleUrls: ['./liste.component.scss'],
-    standalone: true,
-    imports: [CommonModule, SharedModule, CardModule]
+  selector: 'app-liste',
+  templateUrl: './liste.component.html',
+  styleUrls: ['./liste.component.scss'],
+  standalone: true,
+  imports: [CommonModule, SharedModule, CardModule, RouterModule]
 })
-export class ListeComponent {
+export class ListeComponent implements OnInit {
+
+  reparations: IReparation[] = [];
+  loading: boolean = true;
+
+  constructor(private userService: UsersService) { }
+
+  ngOnInit(): void {
+    this.userService.listReparations().subscribe((reponse: IResponse) => {
+      if (reponse.success == true) {
+        this.loading = false;
+        console.log(reponse.data);
+        this.reparations = reponse.data.reparations;
+      }
+    });
+  }
+
   tables = [
     {
       src: 'assets/images/user/avatar-1.jpg',

@@ -1,1 +1,68 @@
-<p>ajout works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Ajouter une voiture" [options]="false">
+            <div class="col-md-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                    <div class="form-group row">
+                        <label for="numero" class="col-sm-3 col-form-label">Numéro du véhicule </label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" formControlName="numero" id="numero"
+                                placeholder="4589 WWT" required />
+                        </div>
+
+                    </div>
+                    <div *ngIf="submitted && f['numero'].errors">
+                        <div class="offset-3"
+                            style="padding-left: 12px;padding-top: 10px; font-size: 12px; color: red;">Veuillez préciser
+                            le numéro du véhicule
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="marque" class="col-sm-3 col-form-label">Marque</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" formControlName="marque" id="marque"
+                                placeholder="Mazda" required />
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && f['marque'].errors">
+                        <div class="offset-3"
+                            style="padding-left: 12px;padding-top: 10px; font-size: 12px; color: red;">Veuillez préciser
+                            la marque
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="model" class="col-sm-3 col-form-label">Modèle</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" formControlName="model" id="model"
+                                placeholder="BT 50" required />
+                        </div>
+                    </div>
+                    <div *ngIf="submitted && f['model'].errors">
+                        <div class="offset-3"
+                            style="padding-left: 12px;padding-top: 10px; font-size: 12px; color: red;">
+                            Veuillez préciser
+                            le modéle
+                        </div>
+                    </div>
+                    <br>
+                    <div *ngIf="error">
+                        <div class="offset-3"
+                            style="padding-left: 12px;padding-top: 10px; font-size: 12px; color: red;">
+                            Un problème est survenu lors de l'insertion de votre véhivule
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Ajouter le véhicule <span
+                                    class="spinner-border spinner-border-sm" *ngIf="loading" role="status"
+                                    aria-hidden="true"></span></button>
+                            <button type="button" (click)="onReset()" class="btn btn-secondary">Nettoyer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </app-card>
+    </div>
+</div>
