@@ -1,17 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReparationsRoutingModule } from './reparations-routing.module';
-import { DetailsComponent } from './details/details.component';
-
-
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReparationsRoutingModule } from "./reparations-routing.module";
+import { DetailsComponent } from "./details/details.component";
+import { ReparerComponent } from "./reparer/reparer.component";
+import { AvancementsComponent } from './avancements/avancements.component';
 
 @NgModule({
   declarations: [
-    DetailsComponent
+    AvancementsComponent
   ],
-  imports: [
-    CommonModule,
-    ReparationsRoutingModule
-  ]
+  imports: [CommonModule, ReparationsRoutingModule],
 })
-export class ReparationsModule { }
+export class ReparationsModule {}

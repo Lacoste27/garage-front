@@ -13,6 +13,7 @@ import { AuthentificationService } from "src/app/demo/services/authentification/
 import { TokenService } from "src/app/demo/services/jwt/token.service";
 import { NavigationItem } from "src/app/theme/layout/admin/navigation/navigation";
 import { SharedModule } from "src/app/theme/shared/shared.module";
+import { ToastService } from "src/app/theme/toast/toast.service";
 
 @Component({
   selector: "app-responsable",
@@ -36,7 +37,8 @@ export class ResponsableComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private token: TokenService,
-    private navigation: NavigationItem
+    private navigation: NavigationItem,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +72,7 @@ export class ResponsableComponent implements OnInit {
           if (response.success) {
             this.token.SetToken(response.data.token);
             this.navigation.set();
+            this.toast.ShowSuccess("Bienvenue", response.message.toString());
             this.router.navigateByUrl("/dashboard");
           } else {
             this.erreur = true;
