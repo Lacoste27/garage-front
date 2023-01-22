@@ -48,13 +48,22 @@ export interface IReparation {
   };
   reparation_faire: [
     {
+      _id?:string;
       cause: string;
       solution: string;
-      prix: string;
+      prix: number;
       etat: string;
     }
   ];
   status: string;
+}
+
+export interface DetailsReparations{  
+  _id:string,
+  cause: string,
+  solution: string,
+  prix: number,
+  etat: ReparationVoitureEtat,
 }
 
 export enum ReparationEtat {
