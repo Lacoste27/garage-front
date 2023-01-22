@@ -1,1 +1,169 @@
-<p>details works!</p>
+<div class="row">
+  <div class="col-xl-4">
+    <div class="col-xl-12">
+      <app-card
+        cardTitle="Client"
+        [options]="false"
+        blockClass="table-border-style"
+      >
+        <div class="container-info-vehicule">
+          <p>
+            <span class="label">Nom : </span>
+            <span>{{ reparation.client.nom }} </span>
+          </p>
+          <hr />
+          <p>
+            <span class="label">Prénom : </span>
+            <span>{{ reparation.client.prenom }} </span>
+          </p>
+          <hr />
+          <p>
+            <span class="label">Email : </span>
+            <span>{{ reparation.client.email }} </span>
+          </p>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-xl-12">
+      <app-card
+        cardTitle="Véhicule"
+        [options]="false"
+        blockClass="table-border-style"
+      >
+        <div class="container-info-vehicule">
+          <p>
+            <span class="label">Numéro : </span>
+            <span>{{ reparation.voiture.numero }} </span>
+          </p>
+          <hr />
+          <p>
+            <span class="label">Marque : </span>
+            <span>{{ reparation.voiture.marque }} </span>
+          </p>
+          <hr />
+          <p>
+            <span class="label">Modèle : </span>
+            <span>{{ reparation.voiture.model }} </span>
+          </p>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-xl-12">
+      <app-card
+        cardTitle="Réparateur"
+        [options]="false"
+        blockClass="table-border-style"
+      >
+        <div class="container-info-vehicule">
+          <p>
+            <span class="label">Nom : </span>
+            <span>{{ reparation.reparateur.nom }} </span>
+          </p>
+          <hr />
+          <p>
+            <span class="label">Prénom : </span>
+            <span>{{ reparation.reparateur.prenom }} </span>
+          </p>
+          <hr />
+          <p>
+            <span class="label">Email : </span>
+            <span>{{ reparation.reparateur.email }} </span>
+          </p>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-xl-12">
+      <app-card
+        cardTitle="Paiement"
+        [options]="false"
+        blockClass="table-border-style"
+      >
+      </app-card>
+    </div>
+  </div>
+  <div class="col-xl-8">
+    <div class="row">
+      <div class="col-xl-12">
+        <app-card
+          cardTitle="Réparations à effectuer"
+          [options]="false"
+          blockClass="table-border-style"
+        >
+          <div class="container-info-vehicule">
+            <div class="container-info-vehicule">
+              <p>
+                <span class="label">Date de dépôt : </span>
+                <span
+                  >{{ reparation.date_depot | date }} -
+                  {{ reparation.date_depot | date : "shortTime" }}
+                </span>
+              </p>
+              <p>
+                <span class="label">Date de sortie : </span>
+                <span
+                  >{{ reparation.date_sortie | date }} -
+                  {{ reparation.date_sortie | date : "shortTime" }}
+                </span>
+              </p>
+
+              <p>
+                <span class="label">Montant total : </span>
+                <span> </span>
+              </p>
+
+              <p>
+                <span class="label"> État des réparations : </span>
+                <span>{{ reparation.status }} </span>
+              </p>
+              <p>
+                <button class="btn btn-success" (click)="receptionner()">
+                  Receptionner
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    *ngIf="loading"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                </button>
+              </p>
+            </div>
+          </div>
+        </app-card>
+      </div>
+
+      <div
+        class="col-xl-6"
+        *ngFor="let detail of reparation.reparation_faire; index as i"
+      >
+        <app-card
+          cardTitle="Num {{ i + 1 }}"
+          [options]="false"
+          blockClass="table-border-style"
+        >
+          <div class="container-info-vehicule">
+            <div class="container-info-vehicule">
+              <p>
+                <span class="label">Cause : </span>
+                <span>{{ detail.cause }} </span>
+              </p>
+              <p>
+                <span class="label">Solution : </span>
+                <span>{{ detail.solution }} </span>
+              </p>
+              <p>
+                <span class="label">Prix : </span>
+                <span
+                  >{{ detail.prix | currency : "Ar " : "symbol" : "4.2-2" }}
+                </span>
+              </p>
+              <p>
+                <span class="label">Etat : </span>
+                <span>{{ detail.etat }} </span>
+              </p>
+            </div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+  </div>
+</div>
