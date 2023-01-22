@@ -6,8 +6,7 @@ import { TokenService } from "../jwt/token.service";
   providedIn: "root",
 })
 export class AtelierService {
-  private base_url =
-    "https://back-m1p10mean.onrender.com/responsables/atelier/";
+  private base_url ="https://back-m1p10mean.onrender.com/responsables/atelier/";
 
   constructor(private token: TokenService, private http: HttpClient) {}
 
@@ -19,10 +18,12 @@ export class AtelierService {
       reparation_id: reparation_id,
     };
 
-    console.log(data);
+    const body = {  
+      data:data
+    }
 
     const url = this.base_url+"reception";
 
-    return this.http.post(url,data);
+    return this.http.post(url,body);
   }
 }

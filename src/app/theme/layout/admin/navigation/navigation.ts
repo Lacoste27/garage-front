@@ -136,10 +136,18 @@ const AtelierNavigation = [
     icon: "icon-navigation",
     children: [
       {
-        id: "liste-voiture",
+        id: "liste-deposer",
         title: "Liste des voitures à entrer",
         type: "item",
-        url: "/reparations/liste",
+        url: "/reparations/deposer/liste",
+        icon: "feather icon-home",
+        classes: "nav-item",
+      },
+      {
+        id: "liste-reparer",
+        title: "Liste des voitures à reparer",
+        type: "item",
+        url: "/reparations/reparer/liste/",
         icon: "feather icon-home",
         classes: "nav-item",
       },

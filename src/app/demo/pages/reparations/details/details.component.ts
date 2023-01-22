@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { IReparation, IResponse } from "src/app/demo/interfaces/interface";
 import { AtelierService } from "src/app/demo/services/atelier/atelier.service";
 import { ReparationService } from "src/app/demo/services/reparations/reparation.service";
@@ -19,10 +19,11 @@ export class DetailsComponent implements OnInit {
   id: string;
   reparation: IReparation;
   loading: boolean = false;
-  enable: boolean = true;
+  disable: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router : Router,
     private reparationsService: ReparationService,
     private atelierService: AtelierService,
     private toast: ToastService
@@ -49,9 +50,10 @@ export class DetailsComponent implements OnInit {
     this.atelierService.reception(this.reparation._id).subscribe({
       next: (result: IResponse) => {
         if (result.success) {
-          this.loading = true;
-          this.enable = false;
+          this.loading = false;
+          this.disable = true;
           this.toast.ShowSuccess("Mise à jour", result.message.toString());
+          // this.router.navigateByUrl("reparations/liste/reparer");
         }
       },
     });

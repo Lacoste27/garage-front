@@ -116,7 +116,7 @@
                 <span>{{ reparation.status }} </span>
               </p>
               <p>
-                <button class="btn btn-success" (click)="receptionner()">
+                <button [disabled]="disable" class="btn btn-success" (click)="receptionner()">
                   Receptionner
                   <span
                     class="spinner-border spinner-border-sm"
