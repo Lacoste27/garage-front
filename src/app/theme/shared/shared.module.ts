@@ -10,6 +10,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [SpinnerComponent],
@@ -21,6 +22,7 @@ import {
     BreadcrumbModule,
     NgbModule,
     NgScrollbarModule,
+    DragDropModule
   ],
   exports: [
     CommonModule,
