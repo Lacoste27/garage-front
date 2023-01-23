@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AjoutComponent } from './ajout/ajout.component';
 import { ListeComponent } from './liste/liste.component';
+import { HistoriqueComponent } from './historique/historique.component';
 
 const routes: Routes = [
   {
@@ -9,11 +10,14 @@ const routes: Routes = [
     children: [
       {
         path: 'liste',
-        component : ListeComponent
+        component: ListeComponent
       },
       {
         path: 'ajout',
         component: AjoutComponent
+      }, {
+        path: 'historique/:idvoiture',
+        component: HistoriqueComponent
       }
     ],
   },

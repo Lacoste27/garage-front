@@ -3,7 +3,9 @@ import { CommonModule } from "@angular/common";
 import { VoituresRoutingModule } from "./voitures-routing.module";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [CommonModule, VoituresRoutingModule],
 })
-export class VoituresModule {}
+export class VoituresModule { }
