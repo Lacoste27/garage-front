@@ -189,35 +189,33 @@
     </form>
 
     <div class="row">
-      <div class="example-container">
-        <h2>En cours</h2>
-
-        <div
-          cdkDropList
-          [cdkDropListData]="encours"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of encours" cdkDrag>
-            {{ item.cause }}
+      <div cdkDropListGroup>
+        <div class="example-container">
+          <h2>Encours</h2>
+      
+          <div
+            cdkDropList
+            [cdkDropListData]="encours"
+            class="example-list"
+            cdkDropListSortingDisabled
+           >
+            <div class="example-box" *ngFor="let item of encours" cdkDrag>{{item.cause}}</div>
+          </div>
+        </div>
+      
+        <div class="example-container">
+          <h2>Finis</h2>
+      
+          <div
+            cdkDropList
+            [cdkDropListData]="finis"
+            class="example-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of finis" cdkDrag>{{item.cause}}</div>
           </div>
         </div>
       </div>
-
-      <div class="example-container">
-        <h2>Finis</h2>
-
-        <div
-          cdkDropList
-          [cdkDropListData]="finis"
-          class="example-list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <div class="example-box" *ngFor="let item of finis" cdkDrag>
-            {{ item.cause }}
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
   <div class="modal-footer"></div>

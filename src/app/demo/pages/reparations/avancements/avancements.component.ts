@@ -17,7 +17,6 @@ import {
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
 
-
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   DetailsReparations,
@@ -38,8 +37,8 @@ import { ToastService } from "src/app/theme/toast/toast.service";
 })
 export class AvancementsComponent implements OnInit {
   reparation: IReparation;
-  encours: DetailsReparations[] =[];
-  finis: DetailsReparations[] =[];
+  encours: DetailsReparations[] = [];
+  finis: DetailsReparations[] = [];
 
   id: string;
   loading: boolean = false;
@@ -51,10 +50,6 @@ export class AvancementsComponent implements OnInit {
     solution: new FormControl(""),
     prix: new FormControl(0),
   });
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   constructor(
     private modalService: NgbModal,
@@ -70,20 +65,49 @@ export class AvancementsComponent implements OnInit {
 
   drop(event: CdkDragDrop<DetailsReparations[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
-      console.log(event);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
+
+      const details: DetailsReparations = event.container.data[
+        event.currentIndex
+      ] as DetailsReparations;
+
+      this.reparationsService
+        .changeReparationsDetailseEtat(this.reparation._id, details._id)
+        .subscribe({
+          next: (response) => {
+            this.toast.ShowSuccess("Etat", "Etat changé");
+          },
+        });
     }
   }
 
   ngOnInit(): void {
     this.loading = true;
+    this.getAll();
+
+    this.form = this.formBuilder.group({
+      cause: ["", Validators.required],
+      solution: ["", Validators.required],
+      prix: ["", Validators.required],
+    });
+
+    this.reparationsService.Refresh.subscribe((response) => {
+      this.getAll();
+    });
+  }
+
+  getAll() {
     this.route.params.subscribe((params) => {
       this.id = params["id"];
       this.reparationsService
@@ -93,16 +117,14 @@ export class AvancementsComponent implements OnInit {
             this.loading = false;
             this.reparation = reparation.data.reparation;
 
-            this.encours = this.reparation.reparation_faire.filter((reparation) => reparation.etat == ReparationVoitureEtat.encours) as DetailsReparations[];
-            this.finis = this.reparation.reparation_faire.filter((reparation) => reparation.etat == ReparationVoitureEtat.fini) as DetailsReparations[];
+            this.encours = this.reparation.reparation_faire.filter(
+              (reparation) => reparation.etat == ReparationVoitureEtat.encours
+            ) as DetailsReparations[];
+            this.finis = this.reparation.reparation_faire.filter(
+              (reparation) => reparation.etat == ReparationVoitureEtat.fini
+            ) as DetailsReparations[];
           }
         });
-    });
-
-    this.form = this.formBuilder.group({
-      cause: ["", Validators.required],
-      solution: ["", Validators.required],
-      prix: ["", Validators.required],
     });
   }
 
@@ -113,14 +135,6 @@ export class AvancementsComponent implements OnInit {
         fullscreen: true,
         centered: true,
       })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
   }
 
   addReparationDetails() {
@@ -159,15 +173,5 @@ export class AvancementsComponent implements OnInit {
           this.toast.ShowError("Erreur", "Une erreur s'est produite");
         },
       });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
-    } else {
-      return `with: ${reason}`;
-    }
   }
 }

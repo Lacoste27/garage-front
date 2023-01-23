@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { DetailsReparations } from "../../interfaces/interface";
+import { Observable, Subject, tap } from "rxjs";
+import { DetailsReparations, IReparation, ReparationVoitureEtat } from "../../interfaces/interface";
 import { AuthentificationService } from "../authentification/authentification.service";
 
 @Injectable({
@@ -15,18 +16,42 @@ export class ReparationService {
     private http: HttpClient,
   ) {}
 
+  private _refresh = new Subject<void>();
+
+  get Refresh(){  
+    return this._refresh;
+  }
+
   detailReparation(idreparation: string) {
     let urlDetailReparation = this.base_url + idreparation + "/detail";
     return this.http.get(urlDetailReparation, { headers: this.headers });
   }
 
-  listeReparation(etat: string){  
+  listeReparation(etat: string): Observable<Object>{  
     const url = this.base_url +"liste?etat="+etat;
     const parameter: HttpParams = new HttpParams();
 
     parameter.set("etat",etat);
 
     return this.http.get(url);
+  }
+
+  changeReparationsDetailseEtat(reparation_id:string, repaaration_detail_id: string){  
+    const url = this.base_url+"voiture/change";
+
+    const body = {  
+      "data":{  
+        "reparation_detail_id":repaaration_detail_id,
+        "reparation_id":reparation_id,
+        "etat": ReparationVoitureEtat.fini
+      }
+    }
+
+    return this.http.post(url, body).pipe(
+      tap(() => {  
+        this._refresh.next();
+      })
+    )
   }
 
   addReparationDetails(reperation_id: string, reparationdetails: DetailsReparations){
@@ -47,7 +72,11 @@ export class ReparationService {
       "data": data
     }
 
-    return this.http.post(url, body);
+    return this.http.post(url, body).pipe(
+      tap(() => {  
+        this._refresh.next();
+      })
+    );
 
   }
 }
