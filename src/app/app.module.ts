@@ -43,7 +43,7 @@ import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
     NavItemComponent,
     NavSearchComponent,
     ToggleFullScreenDirective,
-    ListeComponent,
+    ListeComponent
   ],
   imports: [
     BrowserModule,
@@ -69,4 +69,4 @@ import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

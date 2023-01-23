@@ -21,8 +21,13 @@
                             <td>{{voiture.numero}}</td>
                             <td>{{voiture.model}}</td>
                             <td>{{voiture.marque}}</td>
-                            <td class="action"><button class="btn btn-secondary"
-                                    (click)="deposerVoiture(voiture.numero)">Déposer</button></td>
+                            <td class="action">
+                                <button class="btn btn-secondary"
+                                    (click)="deposerVoiture(voiture.numero)">Déposer</button>
+                                <a [routerLink]="['/users/voitures/historique', voiture.numero]"><button
+                                        class="btn btn-primary">Voir
+                                        l'historique</button></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
