@@ -43,7 +43,7 @@ export class AvancementsComponent implements OnInit {
   id: string;
   loading: boolean = false;
   submitted: boolean = false;
-  closeResult: string = "";
+  enable: boolean = false;
 
   form: FormGroup = new FormGroup({
     cause: new FormControl(""),
@@ -87,6 +87,9 @@ export class AvancementsComponent implements OnInit {
         .subscribe({
           next: (response) => {
             this.toast.ShowSuccess("Etat", "Etat changé");
+            if(this.encours.length == 0 && this.finis.length != 0){  
+              this.enable = true;
+            }
           },
         });
     }

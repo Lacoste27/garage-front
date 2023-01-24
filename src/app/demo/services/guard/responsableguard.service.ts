@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -15,7 +14,7 @@ import { TokenService } from "../jwt/token.service";
 @Injectable({
   providedIn: 'root'
 })
-export class UserguardService {
+export class ResponsableguardService {
   constructor(
     public authService: AuthentificationService,
     private token: TokenService,
@@ -28,8 +27,9 @@ export class UserguardService {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn) {
-      if(!(this.token.GetUser().role === "client")){  
-        this.toast.ShowError("Non authorizé", "Vous ne pouvez pas y accedez");
+      const user = this.token.GetUser();
+      if(!(user.role === "financier") && !(user.role === "atelier") ){  
+        this.toast.ShowError("Connexions", "Vous ne pouvez pas y accedez");
         return this.router.navigateByUrl("/dashboard");
       }
     }

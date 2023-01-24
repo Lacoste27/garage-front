@@ -95,21 +95,29 @@ const FinancierNavigation = [
     ],
   },
   {
-    id: "voitures",
-    title: "Voitures",
+    id: "financier",
+    title: "Financier",
     type: "group",
     icon: "icon-navigation",
     children: [
       {
-        id: "liste-voiture",
-        title: "Liste des voitures",
+        id: "liste-deposer",
+        title: "Liste des voitures à entrer",
         type: "item",
-        url: "/users/voitures",
+        url: "/reparations/deposer/liste",
+        icon: "feather icon-home",
+        classes: "nav-item",
+      },
+      {
+        id: "liste-reparer",
+        title: "Liste des voitures à reparer",
+        type: "item",
+        url: "/reparations/reparer/liste/",
         icon: "feather icon-home",
         classes: "nav-item",
       },
     ],
-  },
+  }
 ];
 
 const AtelierNavigation = [

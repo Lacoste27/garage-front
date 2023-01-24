@@ -27,9 +27,9 @@ export class AtelierguardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn) {
-      if(this.token.GetUser().role != "atelier"){  
+      if(!(this.token.GetUser().role === "atelier")){  
         this.toast.ShowError("Connexion", "Vous ne pouvez pas y accedez");
-        this.router.navigateByUrl("/auth/client/signin");
+        return this.router.navigateByUrl("/dashboard");
       }
     }
     return true;

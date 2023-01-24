@@ -28,9 +28,9 @@ export class FinancierguardService {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn) {
-      if(this.token.GetUser().role != "financier"){  
+      if(!(this.token.GetUser().role === "financier")){  
         this.toast.ShowError("Connexion", "Vous ne pouvez pas y accedez");
-        this.router.navigateByUrl("/auth/client/signin");
+        return this.router.navigateByUrl("/dashboard");
       }
     }
     return true;
