@@ -48,7 +48,7 @@ export interface IReparation {
   };
   reparation_faire: [
     {
-      _id?:string;
+      _id?: string;
       cause: string;
       solution: string;
       prix: number;
@@ -58,18 +58,19 @@ export interface IReparation {
   status: string;
 }
 
-export interface DetailsReparations{  
-  _id:string,
-  cause: string,
-  solution: string,
-  prix: number,
-  etat: ReparationVoitureEtat,
+export interface DetailsReparations {
+  _id: string;
+  cause: string;
+  solution: string;
+  prix: number;
+  etat: ReparationVoitureEtat;
 }
 
 export enum ReparationEtat {
   deposer = "Deposer",
   encours = "En cours de réparation",
-  fini = "Sortie",
+  fini = "Finis",
+  sortie = "Sortie",
 }
 
 export enum ReparationVoitureEtat {
