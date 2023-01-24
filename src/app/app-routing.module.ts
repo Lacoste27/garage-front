@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { GuardService } from "./demo/services/guard.service";
+import { UserguardService } from "./demo/services/guard/userguard.service";
 import { AdminComponent } from "./theme/layout/admin/admin.component";
 import { GuestComponent } from "./theme/layout/guest/guest.component";
 
@@ -35,6 +36,7 @@ const routes: Routes = [
         path: "users",
         loadChildren: () =>
           import("./demo/pages/users/users.module").then((m) => m.UsersModule),
+        canActivate: [UserguardService]
       },
       {
         path: "reparations",
@@ -42,7 +44,6 @@ const routes: Routes = [
           import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule),
       },
     ],
-    canActivate: [GuardService],
   },
 ];
 

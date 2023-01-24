@@ -10,7 +10,6 @@ const routes: Routes = [
         path: "voitures",
         loadChildren: () =>
           import("./voitures/voitures.module").then((m) => m.VoituresModule),
-        canActivate: [GuardService],
       },
       {
         path: "reparations",
@@ -18,7 +17,6 @@ const routes: Routes = [
           import("./reparations/reparations.module").then(
             (m) => m.ReparationsModule
           ),
-        canActivate: [GuardService],
       },
     ],
   },
