@@ -5,6 +5,9 @@ import { ListeComponent } from './liste/liste.component';
 import { DetailsComponent } from './details/details.component';
 import { ReparerComponent } from './reparer/reparer.component';
 import { AvancementsComponent } from './avancements/avancements.component';
+import { AtelierguardService } from '../../services/guard/atelierguard.service';
+import { FinancierguardService } from '../../services/guard/financierguard.service';
+import { ResponsableguardService } from '../../services/guard/responsableguard.service';
 
 const routes: Routes = [
   {
@@ -12,19 +15,23 @@ const routes: Routes = [
     children: [
       {
         path: 'deposer/liste',
-        component : ListeComponent
+        component : ListeComponent,
+        canActivate: [AtelierguardService]
       },
       {
         path: 'reparer/liste',
-        component : ReparerComponent
+        component : ReparerComponent,
+        canActivate: [ResponsableguardService]
       },
       {
         path: 'details/:id',
-        component : DetailsComponent
+        component : DetailsComponent,
+        canActivate: [ResponsableguardService]
       },
       {  
         path: 'avancement/:id',
-        component: AvancementsComponent
+        component: AvancementsComponent,
+        canActivate: [ResponsableguardService]
       }
     ],
   },

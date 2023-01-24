@@ -20,7 +20,7 @@ export class TokenService {
     }
   }
 
-  GetUser() {
+  GetUser():any {
     const token = this.GetToken();
     if (token) {
       const user = jwtDecode(token);
