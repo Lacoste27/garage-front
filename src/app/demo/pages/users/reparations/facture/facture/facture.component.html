@@ -1,0 +1,77 @@
+<p>facture works!</p>
+<div class="row">
+    <div class="col-xl-4">
+        <div class="col-xl-12">
+            <app-card cardTitle="Client" [options]="false" blockClass="table-border-style">
+                <div class="container-info-vehicule">
+                    <p>
+                        <span class="label">Nom : </span>
+                        <span>{{reparation.client.nom}} </span>
+                    </p>
+                    <hr>
+                    <p>
+                        <span class="label">Prénom : </span>
+                        <span>{{reparation.client.prenom}} </span>
+                    </p>
+                    <hr>
+                    <p>
+                        <span class="label">Email : </span>
+                        <span>{{reparation.client.email}} </span>
+                    </p>
+                </div>
+            </app-card>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <app-card cardTitle="Véhicule" [options]="false" blockClass="table-border-style">
+            <div class="container-info-vehicule">
+                <p>
+                    <span class="label">Numéro : </span>
+                    <span>{{ reparation.voiture.numero }} </span>
+                </p>
+                <hr>
+                <p>
+                    <span class="label">Marque : </span>
+                    <span>{{ reparation.voiture.marque }} </span>
+                </p>
+                <hr>
+                <p>
+                    <span class="label">Modèle : </span>
+                    <span>{{ reparation.voiture.model }} </span>
+                </p>
+            </div>
+        </app-card>
+    </div>
+    <div class="col-xl-8">
+        <div class="row">
+            <div class="col-xl-12">
+                <app-card cardTitle="Facture" [options]="false" blockClass="table-border-style">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let detail of reparation.reparation_faire; index as i">
+                                    <th scope="row">{{ detail.solution }}</th>
+                                    <td>{{ detail.prix | currency:'Ar ':'symbol':'4.2-2'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="float-end">
+                            <span class="label">Total : </span>
+                            <span class="label">{{ montantTotal | currency:'Ar ':'symbol':'4.2-2' }} </span>
+                        </p>
+                        <span class="spinner-border spinner-border-sm" *ngIf="loading" role="status"
+                            aria-hidden="true"></span>
+                    </div>
+                </app-card>
+            </div>
+        </div>
+
+    </div>
+</div>

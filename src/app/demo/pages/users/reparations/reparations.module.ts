@@ -4,7 +4,9 @@ import { DetailsComponent } from "./details/details.component";
 import { ReparationsRoutingModule } from "./reparations-routing.module";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [CommonModule, ReparationsRoutingModule],
 })
 export class ReparationsModule {
