@@ -69,9 +69,57 @@
                         <span class="spinner-border spinner-border-sm" *ngIf="loading" role="status"
                             aria-hidden="true"></span>
                     </div>
+                    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+                        Payée
+                    </button>
                 </app-card>
             </div>
         </div>
 
     </div>
+    <div class="col-xl-6">
+
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">
+                    Details reparations de la voitures
+                </h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" (ngSubmit)="payerReparation()">
+                    <div class="row">
+                        <div class="col">
+                            <label for="dateOfBirth">Mode de paiement</label>
+                            <div class="input-group">
+                                <input id="dateOfBirth" class="form-control" formControlName="mode"
+                                    placeholder="Carte visa / MVola" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="dateOfBirth">Montant</label>
+                            <div class="input-group">
+                                <input id="dateOfBirth" class="form-control" formControlName="montant"
+                                    placeholder="0" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="dateOfBirth"></label>
+                            <div class=" ">
+                                <button type="submit" class="btn btn-primary">
+                                    Payée
+                                    <span class="spinner-border spinner-border-sm" *ngIf="loading" role="status"
+                                        aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"></div>
+        </ng-template>
+    </div>
+
 </div>
