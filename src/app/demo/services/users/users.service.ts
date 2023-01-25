@@ -38,7 +38,7 @@ export class UsersService {
   }
 
   payerReparation(paiement: Paiement, reparation_id: string) {
-    let urlReparationVoiture = "http://localhost:3000/users/" + "reparations/paiement";
+    let urlReparationVoiture = this.base_url + "reparations/paiement";
     return this.http.post(urlReparationVoiture, { data: { paiement: paiement, reparation_id: reparation_id } });
   }
 }

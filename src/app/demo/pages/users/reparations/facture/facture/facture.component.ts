@@ -87,8 +87,7 @@ export class FactureComponent implements OnInit {
 
     const paiement = {
       mode: this.form.value.mode,
-      recu: this.form.value.montant,
-      reparation_id: this.id,
+      recu: this.form.value.montant
     };
 
     this.userService.payerReparation(paiement, this.reparation._id).subscribe((reponse: IResponse) => {
