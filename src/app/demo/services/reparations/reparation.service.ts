@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, Subject, tap } from "rxjs";
-import { DetailsReparations, IReparation, ReparationVoitureEtat } from "../../interfaces/interface";
+import { DetailsReparations, IReparation, ReparationEtat, ReparationVoitureEtat } from "../../interfaces/interface";
 import { AuthentificationService } from "../authentification/authentification.service";
 
 @Injectable({
@@ -34,6 +34,19 @@ export class ReparationService {
     parameter.set("etat",etat);
 
     return this.http.get(url);
+  }
+
+  changeReparationEtat(reparation_id: string){
+    const url = this.base_url+"change";
+
+    const body = {  
+      "data":{  
+        "reparation_id":reparation_id,
+        "etat":ReparationEtat.fini
+      }
+    }
+
+    return this.http.post(url, body);
   }
 
   changeReparationsDetailseEtat(reparation_id:string, repaaration_detail_id: string){  

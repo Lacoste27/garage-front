@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule, formatNumber } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import {
   AbstractControl,
@@ -27,13 +27,22 @@ import {
 import { ReparationService } from "src/app/demo/services/reparations/reparation.service";
 import { SharedModule } from "src/app/theme/shared/shared.module";
 import { ToastService } from "src/app/theme/toast/toast.service";
+import { MatList, MatListItem, MatListModule } from "@angular/material/list";
+import { MatIcon } from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: "app-avancements",
   templateUrl: "./avancements.component.html",
   styleUrls: ["./avancements.component.scss"],
   standalone: true,
-  imports: [SharedModule, CommonModule, DragDropModule],
+  imports: [
+    SharedModule,
+    CommonModule,
+    DragDropModule,
+    MatListModule,
+    MatIconModule,
+  ],
 })
 export class AvancementsComponent implements OnInit {
   reparation: IReparation;
@@ -43,7 +52,7 @@ export class AvancementsComponent implements OnInit {
   id: string;
   loading: boolean = false;
   submitted: boolean = false;
-  enable: boolean = false;
+  disable: boolean = true;
 
   form: FormGroup = new FormGroup({
     cause: new FormControl(""),
@@ -87,12 +96,24 @@ export class AvancementsComponent implements OnInit {
         .subscribe({
           next: (response) => {
             this.toast.ShowSuccess("Etat", "Etat changé");
-            if(this.encours.length == 0 && this.finis.length != 0){  
-              this.enable = true;
-            }
+            this.EnableState();
           },
         });
     }
+  }
+
+  EnableState() {
+    console.log(this.encours);
+    console.log(this.finis);
+    if (this.encours.length == 0 && this.finis.length > 0) {
+      this.disable = false;
+    } else {
+      this.disable = true;
+    }
+  }
+
+  FormatNumber(number: number){
+    return formatNumber(number, "0,00");
   }
 
   ngOnInit(): void {
@@ -108,6 +129,23 @@ export class AvancementsComponent implements OnInit {
     this.reparationsService.Refresh.subscribe((response) => {
       this.getAll();
     });
+  }
+
+  changeEtat() {
+    this.reparationsService
+      .changeReparationEtat(this.reparation._id)
+      .subscribe({
+        next: (result) => {
+          console.log(result);
+          this.toast.ShowSuccess(
+            "Changement etat !",
+            "Voiture prêt à etre sortie"
+          );
+        },
+        error: (erreur) => {
+          this.toast.ShowSuccess("Erreur!", erreur);
+        },
+      });
   }
 
   getAll() {
@@ -126,18 +164,18 @@ export class AvancementsComponent implements OnInit {
             this.finis = this.reparation.reparation_faire.filter(
               (reparation) => reparation.etat == ReparationVoitureEtat.fini
             ) as DetailsReparations[];
+            this.EnableState();
           }
         });
     });
   }
 
   open(content: any) {
-    this.modalService
-      .open(content, {
-        ariaLabelledBy: "modal-basic-title",
-        fullscreen: true,
-        centered: true,
-      })
+    this.modalService.open(content, {
+      ariaLabelledBy: "modal-basic-title",
+      fullscreen: true,
+      centered: true,
+    });
   }
 
   addReparationDetails() {
