@@ -102,17 +102,17 @@ const FinancierNavigation = [
     children: [
       {
         id: "liste-deposer",
-        title: "Liste des voitures à entrer",
+        title: "Liste des reparations",
         type: "item",
-        url: "/reparations/deposer/liste",
+        url: "/reparations/all",
         icon: "feather icon-home",
         classes: "nav-item",
       },
       {
         id: "liste-reparer",
-        title: "Liste des voitures à reparer",
+        title: "Liste des paiements à valider",
         type: "item",
-        url: "/reparations/reparer/liste/",
+        url: "/paiements/liste",
         icon: "feather icon-home",
         classes: "nav-item",
       },

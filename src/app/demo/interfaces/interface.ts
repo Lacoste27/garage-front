@@ -33,7 +33,7 @@ export interface IReparation {
   _id: string;
   date_depot: Date;
   date_sortie: Date;
-  paiement: {};
+  paiement?: any;
   client: {
     nom: string;
     prenom: string;

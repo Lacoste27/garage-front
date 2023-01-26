@@ -43,6 +43,10 @@ const routes: Routes = [
         loadChildren: () =>
           import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule),
       },
+      {  
+        path:"paiements",
+        loadChildren: () => import("./demo/pages/paiements/paiements.module").then((m)=> m.PaiementsModule)
+      }
     ],
   },
 ];

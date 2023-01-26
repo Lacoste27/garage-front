@@ -8,11 +8,17 @@ import { AvancementsComponent } from './avancements/avancements.component';
 import { AtelierguardService } from '../../services/guard/atelierguard.service';
 import { FinancierguardService } from '../../services/guard/financierguard.service';
 import { ResponsableguardService } from '../../services/guard/responsableguard.service';
+import { AllComponent } from './all/all.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
+      {  
+        path: 'all',
+        component : AllComponent,
+        canActivate: [ResponsableguardService]
+      },
       {
         path: 'deposer/liste',
         component : ListeComponent,
