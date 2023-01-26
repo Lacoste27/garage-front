@@ -9,7 +9,8 @@ import { AuthentificationService } from "../authentification/authentification.se
   providedIn: "root",
 })
 export class ReparationService {
-  private base_url = "https://back-m1p10mean.onrender.com/reparations/";
+  //private base_url = "https://back-m1p10mean.onrender.com/reparations/";
+  private base_url = "http://localhost:3000/reparations/";
   private headers = new HttpHeaders().set("Content-Type", "application/json");
 
   constructor(
@@ -25,6 +26,10 @@ export class ReparationService {
   detailReparation(idreparation: string) {
     let urlDetailReparation = this.base_url + idreparation + "/detail";
     return this.http.get(urlDetailReparation, { headers: this.headers });
+  }
+
+  all(){  
+    return this.http.get(this.base_url, { headers: this.headers });
   }
 
   listeReparation(etat: string): Observable<Object>{  
@@ -91,5 +96,8 @@ export class ReparationService {
       })
     );
 
+  }
+
+  paiementAvalider(){
   }
 }
