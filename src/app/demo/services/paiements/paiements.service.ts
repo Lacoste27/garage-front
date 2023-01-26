@@ -6,7 +6,7 @@ import { TokenService } from '../jwt/token.service';
   providedIn: 'root'
 })
 export class PaiementsService {
-  private base_url = "http://localhost:3000/paiements/";
+  private base_url = "https://back-m1p10mean.onrender.com/paiements/";
 
   constructor(private http: HttpClient, private token: TokenService) { }
 

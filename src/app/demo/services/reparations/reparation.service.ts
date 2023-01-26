@@ -9,8 +9,8 @@ import { AuthentificationService } from "../authentification/authentification.se
   providedIn: "root",
 })
 export class ReparationService {
-  //private base_url = "https://back-m1p10mean.onrender.com/reparations/";
-  private base_url = "http://localhost:3000/reparations/";
+  private base_url = "https://back-m1p10mean.onrender.com/reparations/";
+  
   private headers = new HttpHeaders().set("Content-Type", "application/json");
 
   constructor(

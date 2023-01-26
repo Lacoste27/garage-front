@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { ListeComponent } from './liste/liste.component';
 import { EtatComponent } from './etat/etat.component';
+import { FinancierguardService } from '../../services/guard/financierguard.service';
 
 
 const routes : Routes = [
@@ -17,7 +18,8 @@ const routes : Routes = [
         path:'etat/:id',
         component: EtatComponent
       }
-    ]
+    ],
+    canActivate: [FinancierguardService]
   }
 ]
 
