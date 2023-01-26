@@ -77,3 +77,18 @@ export enum ReparationVoitureEtat {
   encours = "En cours",
   fini = "Finis",
 }
+
+
+export interface IPaiment {
+  date: string,
+  mode: string,
+  recu: string,
+  rendu: string,
+  valideur: {},
+  valid: number
+}
+
+export interface Paiement {
+  mode: string,
+  recu: string
+}

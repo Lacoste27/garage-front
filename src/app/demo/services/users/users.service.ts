@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { IVoiture } from "../../interfaces/interface";
+import { IVoiture, Paiement } from "../../interfaces/interface";
 import { AuthentificationService } from "../authentification/authentification.service";
 import { TokenService } from "../jwt/token.service";
 
@@ -15,7 +15,7 @@ export class UsersService {
     private http: HttpClient,
     private router: Router,
     private authService: AuthentificationService
-  ) {}
+  ) { }
 
   listVoitures() {
     let urlListVoiture = this.base_url + "voitures";
@@ -35,5 +35,10 @@ export class UsersService {
   listReparations() {
     let urlListReparation = this.base_url + "reparations";
     return this.http.get(urlListReparation);
+  }
+
+  payerReparation(paiement: Paiement, reparation_id: string) {
+    let urlReparationVoiture = this.base_url + "reparations/paiement";
+    return this.http.post(urlReparationVoiture, { data: { paiement: paiement, reparation_id: reparation_id } });
   }
 }
