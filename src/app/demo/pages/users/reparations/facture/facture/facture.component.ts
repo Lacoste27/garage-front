@@ -15,6 +15,7 @@ import {
 } from "@angular/cdk/drag-drop";
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/demo/services/users/users.service';
+import { ToastService } from 'src/app/theme/toast/toast.service';
 
 @Component({
   selector: 'app-facture',
@@ -39,7 +40,8 @@ export class FactureComponent implements OnInit {
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private reparationService: ReparationService,
-    private userService: UsersService
+    private userService: UsersService,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -93,9 +95,10 @@ export class FactureComponent implements OnInit {
     this.userService.payerReparation(paiement, this.reparation._id).subscribe((reponse: IResponse) => {
       if (reponse.success) {
         this.loading = false;
-      } else {
-        this.error = true;
+        this.toast.ShowSuccess("Paiement","Votre paiement est recu , en attentde de validation");
+      } else if(reponse.error){
         this.loading = false;
+        this.toast.ShowError("Paiement",reponse.message.toString());
       }
     })
   }

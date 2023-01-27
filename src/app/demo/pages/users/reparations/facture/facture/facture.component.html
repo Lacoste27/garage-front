@@ -1,4 +1,3 @@
-<p>facture works!</p>
 <div class="row">
     <div class="col-xl-4">
         <div class="col-xl-12">
@@ -94,14 +93,19 @@
                         <div class="col">
                             <label for="dateOfBirth">Mode de paiement</label>
                             <div class="input-group">
-                                <input id="dateOfBirth" class="form-control" formControlName="mode"
-                                    placeholder="Carte visa / MVola" />
+                                <select formControlName="mode" class="form-control" id="">
+                                    <option value="Mvola">Mvola</option>
+                                    <option value="Orange Money">Orange Money</option>
+                                    <option value="Visa">Visa</option>
+                                    <option value="Espece">Espece</option>
+
+                                </select>
                             </div>
                         </div>
                         <div class="col">
                             <label for="dateOfBirth">Montant</label>
                             <div class="input-group">
-                                <input id="dateOfBirth" class="form-control" formControlName="montant"
+                                <input id="dateOfBirth" class="form-control" type="number" formControlName="montant"
                                     placeholder="0" />
                             </div>
                         </div>

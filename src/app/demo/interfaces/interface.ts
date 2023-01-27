@@ -78,6 +78,12 @@ export enum ReparationVoitureEtat {
   fini = "Finis",
 }
 
+export enum DepenseType {  
+  salaire = "salaire",
+  loyer = "loyer",
+  achat_piece ="achat pièces"
+}
+
 
 export interface IPaiment {
   date: string,
@@ -91,4 +97,12 @@ export interface IPaiment {
 export interface Paiement {
   mode: string,
   recu: string
+}
+
+export interface IDepense {  
+  _id?: string,
+  date: Date,
+  motif: string,
+  montant: number,
+  atelier?: object
 }

@@ -117,6 +117,22 @@ const FinancierNavigation = [
         classes: "nav-item",
       },
     ],
+  },
+  {
+    id: "depense",
+    title: "Depense",
+    type: "group",
+    icon: "icon-navigation",
+    children: [
+      {
+        id: "liste-deposer",
+        title: "Liste des depenses",
+        type: "item",
+        url: "/depenses/liste",
+        icon: "feather icon-home",
+        classes: "nav-item",
+      }
+    ],
   }
 ];
 

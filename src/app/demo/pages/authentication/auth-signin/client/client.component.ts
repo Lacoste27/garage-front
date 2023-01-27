@@ -15,6 +15,7 @@ import { AuthentificationService } from "src/app/demo/services/authentification/
 import { TokenService } from "src/app/demo/services/jwt/token.service";
 import { NavigationItem } from "src/app/theme/layout/admin/navigation/navigation";
 import { SharedModule } from "src/app/theme/shared/shared.module";
+import { ToastService } from "src/app/theme/toast/toast.service";
 
 @Component({
   selector: "app-client",
@@ -33,6 +34,7 @@ export class ClientComponent implements OnInit {
   loading: boolean = false;
   erreur: boolean = false;
   submitted: boolean = false;
+  error_message: string = "";
   form: FormGroup = new FormGroup({
     email: new FormControl(""),
     password: new FormControl(""),
@@ -43,7 +45,8 @@ export class ClientComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private token: TokenService,
-    private navigation: NavigationItem
+    private navigation: NavigationItem,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -75,9 +78,12 @@ export class ClientComponent implements OnInit {
           this.token.SetToken(response.data.token);
           this.navigation.set();
           this.router.navigateByUrl("/dashboard");
-        } else {
+          this.toast.ShowSuccess("Bienvenue", "Vous êtes connectés");
+        } else if(response.error){
           this.erreur = true;
+          this.error_message = response.message.toString();
           this.loading = false;
+          this.toast.ShowError("Erreur", response.message.toString());
           return;
         }
       },

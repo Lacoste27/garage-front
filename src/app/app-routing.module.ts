@@ -46,6 +46,10 @@ const routes: Routes = [
       {  
         path:"paiements",
         loadChildren: () => import("./demo/pages/paiements/paiements.module").then((m)=> m.PaiementsModule)
+      },
+      {  
+        path:"depenses",
+        loadChildren: () => import("./demo/pages/depenses/depenses.module").then((m)=>m.DepensesModule)
       }
     ],
   },
