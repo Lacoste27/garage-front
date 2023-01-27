@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-xl-12">
+    <app-card
+      cardTitle="Listes des depenses"
+      [options]="false"
+      blockClass="table-border-style"
+    >
+      <p>
+        <a [routerLink]="['/depenses/ajout']"
+          ><button class="btn btn-danger">Ajouter nouvelle depense</button></a
+        >
+      </p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Date</th>
+            <th scope="col">Motif</th>
+            <th scope="col">Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let depense of depenses; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ depense.date | date }}
+            </td>
+            <td>{{ depense.motif }}</td>
+            <td>{{ depense.montant | number }} Ar</td>
+          </tr>
+        </tbody>
+      </table>
+    </app-card>
+  </div>
+</div>
