@@ -25,6 +25,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthentificationInterceptorService } from "./demo/services/authentification-interceptor.service";
 import { ToastrModule } from "ngx-toastr";
 import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
+import { StatistiqueComponent } from './demo/pages/statistique/statistique/statistique.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
     NavItemComponent,
     NavSearchComponent,
     ToggleFullScreenDirective,
+    StatistiqueComponent,
   ],
   imports: [
     BrowserModule,
