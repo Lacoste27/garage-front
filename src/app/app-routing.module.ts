@@ -44,12 +44,15 @@ const routes: Routes = [
           import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule),
       },
       {
-        path: "paiements",
-        loadChildren: () => import("./demo/pages/paiements/paiements.module").then((m) => m.PaiementsModule)
-      },
-      {
         path: "statistique",
         loadChildren: () => import("./demo/pages/statistique/statistique.module").then((m) => m.StatistiqueModule)
+      {  
+        path:"paiements",
+        loadChildren: () => import("./demo/pages/paiements/paiements.module").then((m)=> m.PaiementsModule)
+      },
+      {  
+        path:"depenses",
+        loadChildren: () => import("./demo/pages/depenses/depenses.module").then((m)=>m.DepensesModule)
       }
     ],
   },
