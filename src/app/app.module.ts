@@ -26,6 +26,7 @@ import { AuthentificationInterceptorService } from "./demo/services/authentifica
 import { ToastrModule } from "ngx-toastr";
 import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
 import { StatistiqueComponent } from './demo/pages/statistique/statistique/statistique.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { StatistiqueComponent } from './demo/pages/statistique/statistique/stati
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgApexchartsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
