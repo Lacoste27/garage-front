@@ -41,12 +41,13 @@ const routes: Routes = [
       {
         path: "reparations",
         loadChildren: () =>
-          import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule),
+          import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule)
       },
       {
         path: "statistique",
         loadChildren: () => import("./demo/pages/statistique/statistique.module").then((m) => m.StatistiqueModule)
-      {  
+      },
+      {
         path:"paiements",
         loadChildren: () => import("./demo/pages/paiements/paiements.module").then((m)=> m.PaiementsModule)
       },
