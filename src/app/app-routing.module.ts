@@ -43,6 +43,9 @@ const routes: Routes = [
         loadChildren: () =>
           import("./demo/pages/reparations/reparations.module").then((m) => m.ReparationsModule),
       },
+      {
+        path: "statistique",
+        loadChildren: () => import("./demo/pages/statistique/statistique.module").then((m) => m.StatistiqueModule)
       {  
         path:"paiements",
         loadChildren: () => import("./demo/pages/paiements/paiements.module").then((m)=> m.PaiementsModule)
@@ -59,4 +62,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

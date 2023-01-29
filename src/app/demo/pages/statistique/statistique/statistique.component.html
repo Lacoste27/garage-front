@@ -1,0 +1,48 @@
+<p>statistique works!</p>
+<div class="row">
+    <div class="col-md-6 col-xl-4">
+        <app-card [hidHeader]="true">
+            <h6 class="mb-4">Temps moyen de réparation</h6>
+            <div class="row d-flex align-items-center">
+                <div class="col-9">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                        <i class="feather icon-clock text-c-red f-30 m-r-10"></i>{{ tempMoyen }}
+                    </h3>
+                </div>
+                <div class="col-3 text-end">
+                    <p class="m-b-0">100%</p>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar>
+            </div>
+        </app-card>
+    </div>
+    <div class="col-md-6 col-xl-4">
+
+    </div>
+    <div class="col-xl-8 col-md-6">
+        <app-card cardTitle="Chiffre d'affaire par jour" *ngIf="jourChartOptions!==undefined">
+            <div id="chart">
+                <apx-chart [series]="jourChartOptions.series" [chart]="jourChartOptions.chart"
+                    [xaxis]="jourChartOptions.xaxis" [stroke]="jourChartOptions.stroke"
+                    [dataLabels]="jourChartOptions.dataLabels" [yaxis]="jourChartOptions.yaxis"
+                    [labels]="jourChartOptions.labels" [legend]="jourChartOptions.legend"
+                    [title]="jourChartOptions.title" [subtitle]="jourChartOptions.subtitle"
+                    [fill]="jourChartOptions.fill"></apx-chart>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-xl-12 col-md-6">
+        <app-card cardTitle="Dépense par mois" *ngIf="montChart!==undefined">
+            <!-- <div id="world-low" style="height: 450px"></div> -->
+            <div id="chart">
+                <apx-chart [series]="montChart.series" [chart]="montChart.chart" [xaxis]="montChart.xaxis"
+                    [stroke]="montChart.stroke" [dataLabels]="montChart.dataLabels" [yaxis]="montChart.yaxis"
+                    [labels]="montChart.labels" [legend]="montChart.legend" [title]="montChart.title"
+                    [subtitle]="montChart.subtitle" [plotOptions]="montChart.plotOptions"></apx-chart>
+            </div>
+        </app-card>
+    </div>
+</div>
