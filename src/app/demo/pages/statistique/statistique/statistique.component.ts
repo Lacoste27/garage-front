@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import ApexCharts from 'apexcharts';
 
 import {
@@ -56,11 +57,26 @@ export class StatistiqueComponent implements OnInit {
 
   public month = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juill', 'Aout', 'Sept', 'Oct', 'Nov'];
 
-  constructor(private statistiqueService: StatistiqueService) {
+  form: FormGroup = new FormGroup({
+    debutjour: new FormControl(""),
+    finjour: new FormControl("")
+  });
+
+  constructor(private statistiqueService: StatistiqueService, private formBuilder: FormBuilder) {
 
   }
 
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+
   ngOnInit(): void {
+
+    this.form = this.formBuilder.group({
+      debutjour: [""],
+      finjour: [""]
+    });
+
     this.statistiqueService.tempsMoyenDeRéparation().subscribe((reponse: IResponse) => {
       if (reponse.success) {
         console.log(reponse);
@@ -240,11 +256,83 @@ export class StatistiqueComponent implements OnInit {
       }
     });
 
-
-
-
-
   }
 
+
+  onFiltrerJour() {
+    this.loading = true;
+    this.submitted = true;
+    if (this.form.invalid) {
+      this.loading = false;
+      return;
+    }
+    console.log(this.form.value);
+
+    this.statistiqueService.chiffreAffaireParJour(this.form.value.debutjour, this.form.value.finjour).subscribe((reponse: IResponse) => {
+      if (reponse.success) {
+
+        this.datasJour = [];
+        this.datesJour = [];
+
+        reponse.data.chiffreJour.forEach(element => {
+          this.datasJour.push(element.chiffre);
+          this.datesJour.push(element._id);
+        });
+
+        this.jourChartOptions = {
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.8,
+              opacityTo: 0.8,
+              stops: [0, 90, 100]
+            }
+          },
+          series: [
+            {
+              name: 'Montant',
+              data: this.datasJour,
+
+            }
+          ],
+          chart: {
+            type: "area",
+            height: 350,
+            zoom: {
+              enabled: true
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: "smooth",
+            width: 2
+          },
+          labels: this.datesJour,
+          xaxis: {
+            type: "datetime"
+          },
+          yaxis: {
+            opposite: true
+          },
+          legend: {
+            horizontalAlign: "left"
+          }
+        }
+
+      }
+
+    });
+  }
+
+  submitted: boolean = false;
+  loading: boolean = false;
+
+  onReset() {
+    this.submitted = false;
+    this.form.reset();
+  }
 }
 

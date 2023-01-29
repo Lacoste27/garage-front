@@ -16,8 +16,13 @@ export class StatistiqueService {
     return this.http.get(this.local_url + 'tempsmoyen');
   }
 
-  chiffreAffaireParJour() {
-    return this.http.get(this.local_url + 'chiffreday');
+  chiffreAffaireParJour(debut = null, fin = null) {
+    var urlChiffreParJour = this.local_url + 'chiffreday';
+    if (debut != null && debut != "" && debut != undefined && fin != null && fin != "" && fin != "") {
+      urlChiffreParJour += '/?debut=' + debut;
+      urlChiffreParJour += '&fin=' + fin;
+    }
+    return this.http.get(urlChiffreParJour);
   }
 
   chiffreAffaireParMois() {
