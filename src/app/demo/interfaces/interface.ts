@@ -1,3 +1,6 @@
+import { SortDirection } from "@angular/material/sort";
+import { SortColumn } from "../services/table/sortable.directive";
+
 export interface IResponse {
   data: any;
   message: Object;
@@ -84,6 +87,25 @@ export enum DepenseType {
   achat_piece ="achat pièces"
 }
 
+export interface IStatistique  {  
+  all: number,
+  encours:number,
+  finis: number,
+  sortie: number
+}
+
+export interface ISearchResult{
+  reparations: IReparation[],
+  total: number
+}
+
+export interface State{
+  page: number;
+	pageSize: number;
+	searchTerm: string;
+	sortColumn: SortColumn;
+	sortDirection: SortDirection;
+}
 
 export interface IPaiment {
   date: string,

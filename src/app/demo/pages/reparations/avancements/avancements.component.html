@@ -1,3 +1,10 @@
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.8)"
+  size="default"
+  color=""
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+></ngx-spinner>
 <div>
   <div class="row">
     <div class="col-lg-4 col-sm-12">
@@ -108,7 +115,10 @@
         blockClass="table-border-style"
       >
         <div class="row p-2">
-          <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+          <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="open(content)"
+          >
             Détails
           </button>
         </div>
@@ -129,7 +139,7 @@
                 >
                   <td>{{ detail.cause }}</td>
                   <td>{{ detail.solution }}</td>
-                  <td>{{ detail.prix | number}} Ar</td>
+                  <td>{{ detail.prix | number }} Ar</td>
                   <td>{{ detail.etat }}</td>
                 </tr>
               </tbody>
@@ -215,14 +225,19 @@
             cdkDropList
             [cdkDropListData]="encours"
             cdkDropListSortingDisabled
-          
           >
-            <mat-list-item [class.mat-elevation-z2]="true" *ngFor="let item of encours" cdkDrag>
-              <mat-icon style="color: red;"  matListItemIcon>indeterminate_check_box</mat-icon>
-              <h3 matListItemTitle>{{item.prix | number}} Ar</h3>
+            <mat-list-item
+              [class.mat-elevation-z2]="true"
+              *ngFor="let item of encours"
+              cdkDrag
+            >
+              <mat-icon style="color: red" matListItemIcon
+                >indeterminate_check_box</mat-icon
+              >
+              <h3 matListItemTitle>{{ item.prix | number }} Ar</h3>
               <p matListItemLine>
                 <span>{{ item.cause }}</span>
-                <span class="demo-2"> --{{  item.solution }}</span>
+                <span class="demo-2"> --{{ item.solution }}</span>
               </p>
             </mat-list-item>
           </mat-list>
@@ -237,8 +252,10 @@
             (cdkDropListDropped)="drop($event)"
           >
             <mat-list-item *ngFor="let item of finis" cdkDrag>
-              <mat-icon style="color:green" matListItemIcon>check_box</mat-icon>
-              <h3 matListItemTitle>{{item.prix | number}} Ar</h3>
+              <mat-icon style="color: green" matListItemIcon
+                >check_box</mat-icon
+              >
+              <h3 matListItemTitle>{{ item.prix | number }} Ar</h3>
               <p matListItemLine>
                 <span>{{ item.cause }}</span>
                 <span class="demo-2"> --{{ item.solution }}</span>

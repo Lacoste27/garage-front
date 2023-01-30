@@ -5,27 +5,35 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StatistiqueService {
-  private base_url = "https://back-m1p10mean.onrender.com/reparations/";
-  private local_url = "http://localhost:3000/statistiques/";
+  private base_url = "https://back-m1p10mean.onrender.com/statistiques/";
+  // private local_url = "http://localhost:3000/statistiques/";
 
   public month = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juill', 'Aout', 'Sept', 'Oct', 'Nov'];
 
   constructor(private http: HttpClient) { }
 
   tempsMoyenDeRéparation() {
-    return this.http.get(this.local_url + 'tempsmoyen');
+    return this.http.get(this.base_url + 'tempsmoyen');
   }
 
   chiffreAffaireParJour() {
-    return this.http.get(this.local_url + 'chiffreday');
+    return this.http.get(this.base_url + 'chiffreday');
   }
 
   chiffreAffaireParMois() {
-    return this.http.get(this.local_url + 'chiffremonth');
+    return this.http.get(this.base_url + 'chiffremonth');
   }
 
   depenseParMois() {
-    return this.http.get(this.local_url + 'depensemonth');
+    return this.http.get(this.base_url + 'depensemonth');
+  }
+
+  countClientReparation(client: string){ 
+    return this.http.get(this.base_url + 'client?email='+client);
+  }
+
+  countAtelierReparation(atelier: string){  
+    return this.http.get(this.base_url + 'atelier?email='+atelier);
   }
 
   trierDatesMonths(dates, chiffre, depense, benefice) {
