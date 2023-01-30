@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IReparation, IResponse } from 'src/app/demo/interfaces/interface';
-import { ReparationService } from 'src/app/demo/services/reparations/reparation.service';
-import { CardModule } from 'src/app/theme/shared/components/card/card.module';
-import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { DetailsReparations, IReparation, IResponse } from "src/app/demo/interfaces/interface";
+import { ReparationService } from "src/app/demo/services/reparations/reparation.service";
+import { CardModule } from "src/app/theme/shared/components/card/card.module";
+import { SharedModule } from "src/app/theme/shared/shared.module";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   CdkDragDrop,
@@ -13,16 +13,23 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsersService } from 'src/app/demo/services/users/users.service';
-import { ToastService } from 'src/app/theme/toast/toast.service';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { UsersService } from "src/app/demo/services/users/users.service";
+import { ToastService } from "src/app/theme/toast/toast.service";
+import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-facture',
-  templateUrl: './facture.component.html',
-  styleUrls: ['./facture.component.scss'],
+  selector: "app-facture",
+  templateUrl: "./facture.component.html",
+  styleUrls: ["./facture.component.scss"],
   standalone: true,
-  imports: [CommonModule, SharedModule, CardModule],
+  imports: [CommonModule, SharedModule, CardModule, NgxSpinnerModule],
 })
 export class FactureComponent implements OnInit {
   id: string;
@@ -36,19 +43,22 @@ export class FactureComponent implements OnInit {
     montant: new FormControl(0),
   });
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private reparationService: ReparationService,
     private userService: UsersService,
-    private toast: ToastService
-  ) { }
+    private toast: ToastService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      mode: ['', Validators.required],
-      montant: [0, Validators.required]
-    })
+      mode: ["", Validators.required],
+      montant: [0, Validators.required],
+    });
+    this.spinner.show();
     this.loading = true;
     this.activatedRoute.params.subscribe((params) => {
       this.id = params["id"];
@@ -58,9 +68,10 @@ export class FactureComponent implements OnInit {
           if (reparation.success == true) {
             this.loading = false;
             this.reparation = reparation.data.reparation;
-            reparation.data.reparation.reparation_faire.forEach(element => {
+            reparation.data.reparation.reparation_faire.forEach((element: DetailsReparations) => {
               this.montantTotal += Number(element.prix);
             });
+            this.spinner.hide();
           }
         });
     });
@@ -71,12 +82,11 @@ export class FactureComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService
-      .open(content, {
-        ariaLabelledBy: "modal-basic-title",
-        fullscreen: false,
-        centered: true,
-      })
+    this.modalService.open(content, {
+      ariaLabelledBy: "modal-basic-title",
+      fullscreen: false,
+      centered: true,
+    });
   }
 
   payerReparation() {
@@ -89,18 +99,23 @@ export class FactureComponent implements OnInit {
 
     const paiement = {
       mode: this.form.value.mode,
-      recu: this.form.value.montant
+      recu: this.form.value.montant,
     };
 
-    this.userService.payerReparation(paiement, this.reparation._id).subscribe((reponse: IResponse) => {
-      if (reponse.success) {
-        this.loading = false;
-        this.toast.ShowSuccess("Paiement","Votre paiement est recu , en attentde de validation");
-      } else if(reponse.error){
-        this.loading = false;
-        this.toast.ShowError("Paiement",reponse.message.toString());
-      }
-    })
+    this.userService
+      .payerReparation(paiement, this.reparation._id)
+      .subscribe((reponse: IResponse) => {
+        if (reponse.success) {
+          this.loading = false;
+          this.toast.ShowSuccess(
+            "Paiement",
+            "Votre paiement est recu , en attente de de validation"
+          );
+        } else if (reponse.error) {
+          this.loading = false;
+          this.toast.ShowError("Paiement", reponse.message.toString());
+        }
+      });
   }
 
   onReset() {

@@ -175,6 +175,14 @@ const AtelierNavigation = [
         icon: "feather icon-home",
         classes: "nav-item",
       },
+      {
+        id: "liste-sortie",
+        title: "Liste des voitures à sortir",
+        type: "item",
+        url: "/reparations/sortie/liste/",
+        icon: "feather icon-home",
+        classes: "nav-item",
+      },
     ],
   },
 ];

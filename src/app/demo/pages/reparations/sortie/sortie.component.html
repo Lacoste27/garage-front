@@ -1,0 +1,104 @@
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.8)"
+  size="default"
+  color=""
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+></ngx-spinner>
+<div class="row">
+  <div class="col-xl-12">
+    <app-card
+      cardTitle="Listes des réparation"
+      [options]="false"
+      blockClass="table-border-style"
+    >
+      <form>
+        <div class="mb-3 row">
+          <label
+            for="table-complete-search"
+            class="col-xs-3 col-sm-auto col-form-label"
+            >Recherche par nom client :</label
+          >
+          <div class="col-xs-3 col-sm-auto">
+            <input
+              id="table-complete-search"
+              type="text"
+              class="form-control"
+              name="searchTerm"
+              [(ngModel)]="tableService.searchTerm"
+            />
+          </div>
+          <span class="col col-form-label" *ngIf="tableService.loading$ | async"
+            >Loading...</span
+          >
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Client</th>
+              <th scope="col" sortable="" (sort)="onSort($event)">Véhicule</th>
+              <th scope="col" sortable="" (sort)="onSort($event)">
+                Date de depot
+              </th>
+              <th scope="col" sortable="" (sort)="onSort($event)">Status</th>
+              <th scope="col" sortable="" (sort)="onSort($event)">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reparation of _reparations$ | async">
+              <th scope="row">{{ reparation.client.nom }}</th>
+              <td>
+                <ngb-highlight
+                  [result]="reparation.voiture.numero"
+                  [term]="tableService.searchTerm"
+                ></ngb-highlight>
+              </td>
+              <td>
+                <ngb-highlight
+                  [result]="reparation.date_depot | date"
+                  [term]="tableService.searchTerm"
+                ></ngb-highlight>
+              </td>
+              <td>
+                <ngb-highlight
+                  [result]="reparation.status"
+                  [term]="tableService.searchTerm"
+                ></ngb-highlight>
+              </td>
+              <td>
+                <button
+                  class="label theme-bg2 text-white f-12 rounded-pill"
+                  (click)="validersortie(reparation._id)"
+                  >Valider bon de sortie</button
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination
+            [collectionSize]="(total$ | async)!"
+            [(page)]="tableService.page"
+            [pageSize]="tableService.pageSize"
+          >
+          </ngb-pagination>
+
+          <select
+            class="form-select"
+            style="width: auto"
+            name="pageSize"
+            [(ngModel)]="tableService.pageSize"
+          >
+            <option [ngValue]="5">5</option>
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="20">20</option>
+            <option [ngValue]="30">30</option>
+            <option [ngValue]="40">40</option>
+          </select>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>

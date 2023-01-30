@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { Subject, tap } from "rxjs";
 import { IVoiture, Paiement } from "../../interfaces/interface";
 import { AuthentificationService } from "../authentification/authentification.service";
 import { TokenService } from "../jwt/token.service";
@@ -15,7 +16,13 @@ export class UsersService {
     private http: HttpClient,
     private router: Router,
     private authService: AuthentificationService
-  ) { }
+  ) {}
+
+  private _refresh = new Subject<void>();
+
+  get Refresh() {
+    return this._refresh;
+  }
 
   listVoitures() {
     let urlListVoiture = this.base_url + "voitures";
@@ -39,6 +46,17 @@ export class UsersService {
 
   payerReparation(paiement: Paiement, reparation_id: string) {
     let urlReparationVoiture = this.base_url + "reparations/paiement";
-    return this.http.post(urlReparationVoiture, { data: { paiement: paiement, reparation_id: reparation_id } });
+    return this.http.post(urlReparationVoiture, {
+      data: { paiement: paiement, reparation_id: reparation_id },
+    });
+  }
+
+  recupererVoiture(reparation_id: string) {
+    const url = this.base_url + "recuperation";
+    return this.http.post(url, { data: { reparation_id: reparation_id } }).pipe(
+      tap(() => {
+        this._refresh.next();
+      })
+    );
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { DashboardComponent } from "./demo/dashboard/dashboard.component";
 import { GuardService } from "./demo/services/guard.service";
 import { UserguardService } from "./demo/services/guard/userguard.service";
 import { AdminComponent } from "./theme/layout/admin/admin.component";
@@ -9,7 +10,7 @@ const routes: Routes = [
   {
     path: "",
     component: GuestComponent,
-    children: [
+    children: [ 
       {
         path: "",
         redirectTo: "/auth/client/signin",
@@ -30,7 +31,7 @@ const routes: Routes = [
     children: [
       {
         path: "dashboard",
-        loadComponent: () => import("./demo/dashboard/dashboard.component"),
+        component: DashboardComponent,
       },
       {
         path: "users",

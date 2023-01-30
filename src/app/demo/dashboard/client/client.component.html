@@ -1,0 +1,69 @@
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.8)"
+  size="default"
+  color=""
+  type="ball-spin-clockwise"
+  [fullScreen]="true"
+></ngx-spinner>
+<div class="row">
+    <div class="col">
+        <app-card [hidHeader]="true">
+            <h6 class="mb-4">Nombre total de réparation</h6>
+            <div class="row d-flex align-items-center">
+                <div class="col-9">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                        <i class="feather icon-clock text-c-green f-30 m-r-10"></i>{{ statistique.all }}
+                    </h3>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar>
+            </div>
+        </app-card>
+    </div>
+    <div class="col">
+        <app-card [hidHeader]="true">
+            <h6 class="mb-4">Réparation en cours</h6>
+            <div class="row d-flex align-items-center">
+                <div class="col-9">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                        <i class="feather icon-clock text-c-red f-30 m-r-10"></i>{{ statistique.encours }}
+                    </h3>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar>
+            </div>
+        </app-card>
+    </div>
+    <div class="col">
+        <app-card [hidHeader]="true">
+            <h6 class="mb-4">Réparation finis</h6>
+            <div class="row d-flex align-items-center">
+                <div class="col-9">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                        <i class="feather icon-clock text-c-red f-30 m-r-10"></i>{{ statistique.finis }}
+                    </h3>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar>
+            </div>
+        </app-card>
+    </div>
+    <div class="col">
+        <app-card [hidHeader]="true">
+            <h6 class="mb-4">Réparation sortie</h6>
+            <div class="row d-flex align-items-center">
+                <div class="col-9">
+                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                        <i class="feather icon-clock text-c-green f-30 m-r-10"></i>{{ statistique.sortie }}
+                    </h3>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <ngb-progressbar type="text-primary" height="7px" [value]="100"></ngb-progressbar>
+            </div>
+        </app-card>
+    </div>
+</div>

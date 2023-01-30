@@ -30,6 +30,7 @@ import { ToastService } from "src/app/theme/toast/toast.service";
 import { MatList, MatListItem, MatListModule } from "@angular/material/list";
 import { MatIcon } from "@angular/material/icon";
 import { MatIconModule } from "@angular/material/icon";
+import { NgxSpinnerModule, NgxSpinnerService, Spinner } from "ngx-spinner";
 
 @Component({
   selector: "app-avancements",
@@ -42,6 +43,7 @@ import { MatIconModule } from "@angular/material/icon";
     DragDropModule,
     MatListModule,
     MatIconModule,
+    NgxSpinnerModule,
   ],
 })
 export class AvancementsComponent implements OnInit {
@@ -65,7 +67,8 @@ export class AvancementsComponent implements OnInit {
     private reparationsService: ReparationService,
     private route: ActivatedRoute,
     private toast: ToastService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {}
 
   get f(): { [key: string]: AbstractControl } {
@@ -112,7 +115,7 @@ export class AvancementsComponent implements OnInit {
     }
   }
 
-  FormatNumber(number: number){
+  FormatNumber(number: number) {
     return formatNumber(number, "0,00");
   }
 
@@ -149,6 +152,7 @@ export class AvancementsComponent implements OnInit {
   }
 
   getAll() {
+    this.spinner.show();
     this.route.params.subscribe((params) => {
       this.id = params["id"];
       this.reparationsService
@@ -165,6 +169,7 @@ export class AvancementsComponent implements OnInit {
               (reparation) => reparation.etat == ReparationVoitureEtat.fini
             ) as DetailsReparations[];
             this.EnableState();
+            this.spinner.hide();
           }
         });
     });

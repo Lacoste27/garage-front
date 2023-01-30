@@ -9,6 +9,7 @@ import { AtelierguardService } from '../../services/guard/atelierguard.service';
 import { FinancierguardService } from '../../services/guard/financierguard.service';
 import { ResponsableguardService } from '../../services/guard/responsableguard.service';
 import { AllComponent } from './all/all.component';
+import { SortieComponent } from './sortie/sortie.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
       {
         path: 'reparer/liste',
         component : ReparerComponent,
+        canActivate: [ResponsableguardService]
+      },
+      {
+        path: 'sortie/liste',
+        component : SortieComponent,
         canActivate: [ResponsableguardService]
       },
       {

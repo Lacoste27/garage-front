@@ -1,39 +1,52 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { UsersService } from 'src/app/demo/services/users/users.service';
-import { IResponse, IVoiture } from 'src/app/demo/interfaces/interface';
-import { Router } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { NgbDropdownModule } from "@ng-bootstrap/ng-bootstrap";
+import { ColorPickerModule } from "ngx-color-picker";
+import { SharedModule } from "src/app/theme/shared/shared.module";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { UsersService } from "src/app/demo/services/users/users.service";
+import { IResponse, IVoiture } from "src/app/demo/interfaces/interface";
+import { Router } from "@angular/router";
+import { ToastService } from "src/app/theme/toast/toast.service";
 
 @Component({
-  selector: 'app-ajout',
+  selector: "app-ajout",
   standalone: true,
   imports: [CommonModule, SharedModule, NgbDropdownModule, ColorPickerModule],
-  templateUrl: './ajout.component.html',
-  styleUrls: ['./ajout.component.scss']
+  templateUrl: "./ajout.component.html",
+  styleUrls: ["./ajout.component.scss"],
 })
 export class AjoutComponent implements OnInit {
   form: FormGroup = new FormGroup({
-    numero: new FormControl(''),
-    marque: new FormControl(''),
-    model: new FormControl(''),
+    numero: new FormControl(""),
+    marque: new FormControl(""),
+    model: new FormControl(""),
   });
   submitted: boolean = false;
   loading: boolean = false;
   error: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private userService: UsersService, private router: Router,) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private userService: UsersService,
+    private router: Router,
+    private toast: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      numero: ['', Validators.required],
-      marque: ['', Validators.required],
-      model: ['', Validators.required],
-    })
+      numero: ["", Validators.required],
+      marque: ["", Validators.required],
+      model: ["", Validators.required],
+    });
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -55,13 +68,14 @@ export class AjoutComponent implements OnInit {
       model: this.form.value.model,
     };
 
-    console.log(voiture)
+    console.log(voiture);
 
     // Ajout du véhicule
     this.userService.ajouterVoiture(voiture).subscribe((reponse: IResponse) => {
       if (reponse.success == true) {
         this.loading = false;
-        this.router.navigateByUrl('/users/voitures/liste');
+        this.toast.ShowSuccess("Voitures " , "Nouveau voitures ajouté");
+        this.router.navigateByUrl("/users/voitures/liste");
       } else {
         this.error = true;
         this.loading = false;
@@ -73,5 +87,4 @@ export class AjoutComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
   }
-
 }

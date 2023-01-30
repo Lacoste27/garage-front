@@ -24,9 +24,10 @@ import { ToggleFullScreenDirective } from "./theme/shared/components/full-screen
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthentificationInterceptorService } from "./demo/services/authentification-interceptor.service";
 import { ToastrModule } from "ngx-toastr";
-import { ListeComponent } from './demo/pages/reparations/liste/liste.component';
 import { StatistiqueComponent } from './demo/pages/statistique/statistique/statistique.component';
 import { NgApexchartsModule } from "ng-apexcharts";
+import {DataTablesModule} from 'angular-datatables';
+import { FooterComponent } from './theme/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     NavItemComponent,
     NavSearchComponent,
     ToggleFullScreenDirective,
-    StatistiqueComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,10 +56,10 @@ import { NgApexchartsModule } from "ng-apexcharts";
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgApexchartsModule,
+    DataTablesModule,
     ToastrModule.forRoot({
       timeOut: 10000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
     })
   ],

@@ -31,7 +31,8 @@
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.scss",
-              "node_modules/morris.js/morris.css"
+              "node_modules/morris.js/morris.css",
+              "node_modules/ngx-spinner/animations/ball-spin-clockwise.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
