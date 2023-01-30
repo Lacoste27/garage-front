@@ -59,6 +59,7 @@ export interface IReparation {
     }
   ];
   status: string;
+  sortie?: any
 }
 
 export interface DetailsReparations {

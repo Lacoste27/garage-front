@@ -43,8 +43,8 @@ export class ResponsableComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ["", Validators.required],
-      password: ["", Validators.required],
+      email: ["atelier@email.com", Validators.required],
+      password: ["passwords", Validators.required],
     });
   }
 

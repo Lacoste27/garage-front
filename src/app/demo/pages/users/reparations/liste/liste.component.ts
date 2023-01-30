@@ -96,7 +96,7 @@ export class ListeComponent implements OnInit {
         if (response.success) {
           this.toast.ShowSuccess("Recupération", response.message.toString());
         } else if (response.error) {
-          this.toast.ShowError("Recupération", response.message.toString());
+          this.toast.ShowError("Recupération", "Votre voiture n'est pas encore prête ou le paiement n'est pas validé");
         }
       },
       error: (error) => {

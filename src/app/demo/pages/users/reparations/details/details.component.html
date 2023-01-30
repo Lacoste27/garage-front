@@ -69,12 +69,20 @@
         <hr />
         <p>
           <span class="label">Montant : </span>
-          <span *ngIf="haspaiement">{{ reparation.paiement.recu | number }} Ar </span>
+          <span *ngIf="haspaiement"
+            >{{ reparation.paiement.recu | number }} Ar
+          </span>
         </p>
         <hr />
         <p>
-          <span class="label">Date paiement : </span>
-          <span  class="badge badge-success" *ngIf="haspaiement">{{ reparation.voiture.model }} </span>
+          <span class="label">Status paiement: </span>
+          <span
+            class="badge badge-success"
+            [ngClass]="
+              paiementvalidate ? 'label theme-bg text-white f-12 rounded-pill' : 'label theme-bg2 text-white f-12 rounded-pill'
+            "
+            >{{ paiementvalidate ? "Validé" : "Non validé" }}
+          </span>
         </p>
       </div>
     </app-card>

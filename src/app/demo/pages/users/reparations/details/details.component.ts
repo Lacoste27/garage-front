@@ -1,7 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IReparation, IResponse } from "src/app/demo/interfaces/interface";
+import {
+  DetailsReparations,
+  IReparation,
+  IResponse,
+} from "src/app/demo/interfaces/interface";
 import { ReparationService } from "src/app/demo/services/reparations/reparation.service";
 import { CardModule } from "../../../../../theme/shared/components/card/card.module";
 import { SharedModule } from "src/app/theme/shared/shared.module";
@@ -19,6 +23,8 @@ export class DetailsComponent implements OnInit {
   reparation: IReparation;
   loading: boolean = false;
   haspaiement: boolean = false;
+  paiementvalidate: boolean = false;
+  total: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,7 +50,13 @@ export class DetailsComponent implements OnInit {
       .subscribe((reparation: IResponse) => {
         if (reparation.success == true) {
           this.reparation = reparation.data.reparation;
-          this.haspaiement = this.reparation.paiement;
+          this.haspaiement = this.reparation.paiement != null;
+          this.paiementvalidate = this.reparation.paiement.valid == 1;
+          reparation.data.reparation.reparation_faire.forEach(
+            (element: DetailsReparations) => {
+              this.total += Number(element.prix);
+            }
+          );
           this.spinner.hide();
         }
       });

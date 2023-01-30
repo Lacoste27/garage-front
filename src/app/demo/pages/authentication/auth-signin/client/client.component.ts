@@ -51,8 +51,8 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ["", Validators.required],
-      password: ["", Validators.required],
+      email: ["madaxa9838@ezgiant.com", Validators.required],
+      password: ["passwords", Validators.required],
     });
   }
 
